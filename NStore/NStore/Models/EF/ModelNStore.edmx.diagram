@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="41d77781f5c74d3093934a808242396d" Name="Diagram1">
+        <EntityTypeShape EntityType="NStoreModel.ChiTietDonHang" Width="1.5" PointX="10.5" PointY="8.75" />
+        <EntityTypeShape EntityType="NStoreModel.ChiTietPhieuNhap" Width="1.5" PointX="7.5" PointY="11.875" />
+        <EntityTypeShape EntityType="NStoreModel.ChiTietPhieuXuat" Width="1.5" PointX="7.5" PointY="6" />
+        <EntityTypeShape EntityType="NStoreModel.DanhMuc" Width="1.5" PointX="3" PointY="9.125" />
+        <EntityTypeShape EntityType="NStoreModel.DonHang" Width="1.5" PointX="8.25" PointY="15.25" />
+        <EntityTypeShape EntityType="NStoreModel.GioHang" Width="1.5" PointX="7.5" PointY="9" />
+        <EntityTypeShape EntityType="NStoreModel.KhachHang" Width="1.5" PointX="8.25" PointY="1.375" />
+        <EntityTypeShape EntityType="NStoreModel.NhaCungCap" Width="1.5" PointX="3" PointY="14" />
+        <EntityTypeShape EntityType="NStoreModel.NhanVien" Width="1.5" PointX="3" PointY="3.25" />
+        <EntityTypeShape EntityType="NStoreModel.NhanVienTiepNhanDonHang" Width="1.5" PointX="10.5" PointY="12.75" />
+        <EntityTypeShape EntityType="NStoreModel.NhomDanhMuc" Width="1.5" PointX="0.75" PointY="9.125" />
+        <EntityTypeShape EntityType="NStoreModel.PhieuNhap" Width="1.5" PointX="5.25" PointY="13.875" />
+        <EntityTypeShape EntityType="NStoreModel.PhieuXuat" Width="1.5" PointX="5.25" PointY="4.125" />
+        <EntityTypeShape EntityType="NStoreModel.SanPham" Width="1.5" PointX="5.25" PointY="7.75" />
+        <EntityTypeShape EntityType="NStoreModel.SanPhamImage" Width="1.5" PointX="7.5" PointY="24.125" />
+        <EntityTypeShape EntityType="NStoreModel.SanPhamYeuThich" Width="1.5" PointX="10.5" PointY="6.125" />
+        <AssociationConnector Association="NStoreModel.FK__ChiTietDo__idDon__5165187F" />
+        <AssociationConnector Association="NStoreModel.FK__ChiTietDo__idSan__52593CB8" />
+        <AssociationConnector Association="NStoreModel.FK__ChiTietPh__idPhi__38996AB5" />
+        <AssociationConnector Association="NStoreModel.FK__ChiTietPh__idSan__398D8EEE" />
+        <AssociationConnector Association="NStoreModel.FK__ChiTietPh__idPhi__3F466844" />
+        <AssociationConnector Association="NStoreModel.FK__ChiTietPh__idSan__403A8C7D" />
+        <AssociationConnector Association="NStoreModel.FK__DanhMuc__idNhomD__2A4B4B5E" />
+        <AssociationConnector Association="NStoreModel.FK__SanPham__idDanhM__2D27B809" />
+        <AssociationConnector Association="NStoreModel.FK__DonHang__idKhach__4AB81AF0" />
+        <AssociationConnector Association="NStoreModel.FK__NhanVienT__idDon__4D94879B" />
+        <AssociationConnector Association="NStoreModel.FK__GioHang__idKhach__46E78A0C" />
+        <AssociationConnector Association="NStoreModel.FK__GioHang__idSanPh__47DBAE45" />
+        <AssociationConnector Association="NStoreModel.FK__SanPhamYe__idKha__4316F928" />
+        <AssociationConnector Association="NStoreModel.FK__PhieuNhap__idNha__35BCFE0A" />
+        <AssociationConnector Association="NStoreModel.FK__NhanVienT__idNha__4E88ABD4" />
+        <AssociationConnector Association="NStoreModel.FK__PhieuNhap__idNha__34C8D9D1" />
+        <AssociationConnector Association="NStoreModel.FK__PhieuXuat__idNha__3C69FB99" />
+        <AssociationConnector Association="NStoreModel.FK__SanPhamIm__idSan__300424B4" />
+        <AssociationConnector Association="NStoreModel.FK__SanPhamYe__idSan__440B1D61" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
