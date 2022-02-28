@@ -130,8 +130,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DanhMucController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NhomDanhMucController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SanPhamController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SanPhamImageController.cs" />
     <Compile Include="Code\Md5hash.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SanPhamController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -197,6 +202,8 @@
     <Compile Include="Models\EF\SanPhamImage.cs">
       <DependentUpon>ModelNStore.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EF\SanPhamMetadata.cs" />
+    <Compile Include="Models\EF\SanPhamPartial.cs" />
     <Compile Include="Models\EF\SanPhamYeuThich.cs">
       <DependentUpon>ModelNStore.tt</DependentUpon>
     </Compile>
@@ -213,6 +220,7 @@
     <Content Include="assets\css\plugins\jquery.countdown.css" />
     <Content Include="assets\css\plugins\nouislider\nouislider.css" />
     <Content Include="assets\css\plugins\owl-carousel\owl.carousel.css" />
+    <Content Include="assets\css\sanpham.css" />
     <Content Include="assets\css\style.css" />
     <Content Include="assets\fonts\icon51c1.svg" />
     <Content Include="assets\fonts\molla0ab2.svg" />
@@ -557,6 +565,8 @@
     <Content Include="assets\images\portfolio\masonry-4cols\item-6.jpg" />
     <Content Include="assets\images\portfolio\masonry-4cols\item-7.jpg" />
     <Content Include="assets\images\portfolio\masonry-4cols\item-8.jpg" />
+    <Content Include="assets\images\products\2000976-1.jpg" />
+    <Content Include="assets\images\products\2000976_1.jpg" />
     <Content Include="assets\images\products\cart\product-1.jpg" />
     <Content Include="assets\images\products\cart\product-2.jpg" />
     <Content Include="assets\images\products\elements\5cols\product-1.jpg" />
@@ -738,6 +748,7 @@
     <Content Include="assets\js\main.js" />
     <Content Include="assets\js\nouislider.min.js" />
     <Content Include="assets\js\owl.carousel.min.js" />
+    <Content Include="assets\js\sanpham2.js" />
     <Content Include="assets\js\scripts.js" />
     <Content Include="assets\js\superfish.min.js" />
     <Content Include="assets\js\wNumb.js" />
@@ -794,6 +805,26 @@
     <Content Include="Areas\Admin\Views\Customer\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Customer\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Customer\ResetPass.cshtml" />
+    <Content Include="Areas\Admin\Views\SanPham\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\SanPham\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\SanPham\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\SanPham\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\SanPham\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DanhMuc\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\DanhMuc\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\DanhMuc\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\DanhMuc\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DanhMuc\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SanPhamImage\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\SanPhamImage\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\SanPhamImage\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\SanPhamImage\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\SanPhamImage\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\NhomDanhMuc\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\NhomDanhMuc\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\NhomDanhMuc\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\NhomDanhMuc\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\NhomDanhMuc\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -805,6 +836,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="assets\js\sanpham.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -816,6 +848,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\SanPham\SanPhamDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
