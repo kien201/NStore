@@ -1,7 +1,7 @@
 ﻿.add_img{
-    width:200px;
-    height:200px;
-    border:1px solid black;
+    width:100px;
+    height:100px;
+    border:1px solid silver;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -14,10 +14,10 @@
 }
 
 .custom-file-input::before {
-    content: 'Chọn ảnh';
+    content: 'Thêm ảnh';
     display: inline-block;
     background: linear-gradient(top, #f9f9f9, #e3e3e3);
-    border: 1px solid #999;
+    border: none;
     border-radius: 3px;
     padding: 5px 8px;
     outline: none;
@@ -37,9 +37,9 @@
     background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
 
-.pro-cate-img  button {
+.pro-cate-img button {
     position: absolute;
-   transform:translateX(-60px);
+    transform: translateX(-60px);
     background-color: #555;
     color: white;
     font-size: 16px;

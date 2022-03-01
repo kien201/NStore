@@ -82,10 +82,11 @@ namespace NStore.Areas.Admin.Controllers
             var result = db.SanPhamImage.Select(x=>new {x.id, x.img ,x.idSanPham}).Where(x=>x.idSanPham==id_img);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult AddImg(string imagePath,int id)
+        public ActionResult AddImg(string imgPath, int id)
         {
+
             int id_img = Convert.ToInt32(id);
-            SanPhamImage sp = new SanPhamImage() { idSanPham = id, img = imagePath };
+            SanPhamImage sp = new SanPhamImage() { idSanPham = id, img = imgPath };
             db.SanPhamImage.Add(sp);
             db.SaveChanges();
             return Json("Thêm thành công", JsonRequestBehavior.AllowGet);

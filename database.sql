@@ -60,7 +60,7 @@ CREATE TABLE SanPhamImage(
 	idSanPham INT FOREIGN KEY REFERENCES SanPham(id) ON DELETE CASCADE,
 	img VARCHAR(255)
 )
-SELECT *FROM SanPhamImage
+
 CREATE TABLE NhaCungCap(
 	id INT PRIMARY KEY IDENTITY,
 	tenNhaCungCap NVARCHAR(255),
@@ -133,4 +133,3 @@ CREATE TABLE ChiTietDonHang(
 	donGia INT, --tại thời điểm đặt hàng
 	giamGia TINYINT, --theo % tại thời điểm đặt hàng
 )
-SELECT * FROM SanPham
