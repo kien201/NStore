@@ -1,5 +1,4 @@
-﻿@*@Html.Action("CheckLogin", "Login")*@
-
+﻿@Html.Action("CheckAuthenticate", "Login")
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,13 +47,24 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             Khách Hàng
                         </a>
+                        <a class="nav-link" href="@Url.Action("Index", "CategoryGroup")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Nhóm Danh Mục
+                        </a>
+                        <a class="nav-link" href="@Url.Action("Index", "Category")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Danh Mục
+                        </a>
+                        <a class="nav-link" href="@Url.Action("Index", "Staff")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Nhân Viên
+                        </a>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
                     <span class="small">
                         Người dùng:
-                        @{ var curUser = Session["curUser"] as Dictionary<string, string>; }
-                        @*@curUser["displayName"]*@
+                        @((Session["curStaff"] as NStore.Models.EF.NhanVien).hoTen)
                     </span>
                 </div>
             </nav>

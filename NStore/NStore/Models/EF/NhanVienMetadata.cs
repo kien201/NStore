@@ -6,7 +6,7 @@ using System.Web;
 
 namespace NStore.Models.EF
 {
-    public class KhachHangMetadata
+    public class NhanVienMetadata
     {
         [Display(Name = "Tài khoản")]
         [Required(ErrorMessage = "Tài khoản không được để trống!")]
@@ -21,6 +21,12 @@ namespace NStore.Models.EF
         [Display(Name = "Họ tên")]
         [Required(ErrorMessage = "Họ tên không được để trống!")]
         public string hoTen { get; set; }
+
+        [Display(Name = "Căn cước")]
+        [MinLength(9, ErrorMessage = "Căn cước không hợp lệ!")]
+        [MaxLength(15, ErrorMessage = "Căn cước không hợp lệ!")]
+        [Required(ErrorMessage = "Căn cước không được để trống!")]
+        public string CCCD { get; set; }
 
         [Display(Name = "Email")]
         [DataType(DataType.EmailAddress)]
@@ -46,5 +52,9 @@ namespace NStore.Models.EF
         [Display(Name = "Địa chỉ")]
         [DisplayFormat(NullDisplayText = "??")]
         public string diaChi { get; set; }
+
+        [Display(Name = "Chức vụ")]
+        [Required(ErrorMessage = "Chức vụ không được để trống!")]
+        public Nullable<byte> chucVu { get; set; }
     }
 }

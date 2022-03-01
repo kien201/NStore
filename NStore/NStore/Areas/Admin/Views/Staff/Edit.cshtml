@@ -1,4 +1,4 @@
-﻿@model NStore.Models.EF.KhachHang
+﻿@model NStore.Models.EF.NhanVien
 
 @{
     ViewBag.Title = "Sửa";
@@ -9,7 +9,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Sửa khách hàng</h4>
+        <h4>Sửa nhân viên</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
@@ -21,6 +21,14 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.hoTen, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.hoTen, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CCCD, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CCCD, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                @Html.ValidationMessageFor(model => model.CCCD, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -68,6 +76,14 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.diaChi, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.diaChi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.chucVu, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("chucVu", null, new { @class = "form-select" })
+                @Html.ValidationMessageFor(model => model.chucVu, "", new { @class = "text-danger" })
             </div>
         </div>
 

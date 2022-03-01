@@ -1,0 +1,26 @@
+﻿@model IEnumerable<NStore.Models.EF.NhomDanhMuc>
+
+@foreach (var item in Model)
+{
+    <li class="megamenu-container">
+        <a class="sf-with-ul text-capitalize" href="#!">@item.tenNhomDanhMuc</a>
+
+        <div class="megamenu megamenu-md">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <div class="menu-col">
+                        <div class="menu-title text-capitalize">@item.tenNhomDanhMuc</div><!-- End .menu-title -->
+                        <ul>
+                            @foreach (var catItem in item.DanhMuc)
+                            {
+                                <li><a href="#" class="text-capitalize">@catItem.tenDanhMuc</a></li>
+                            }
+                        </ul>
+                    </div><!-- End .menu-col -->
+                </div><!-- End .col-md-8 -->
+
+                <div class="col-md-8 banner-cats" style="background-image: url(@Url.Content("~/assets/images/category/" + item.img))"></div><!-- End .col-md-4 -->
+            </div><!-- End .row -->
+        </div><!-- End .megamenu -->
+    </li>
+}

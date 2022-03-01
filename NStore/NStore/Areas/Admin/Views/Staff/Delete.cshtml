@@ -1,10 +1,10 @@
-﻿@model NStore.Models.EF.KhachHang
+﻿@model NStore.Models.EF.NhanVien
 
 @{
-    ViewBag.Title = "Đặt Lại Mật Khẩu";
+    ViewBag.Title = "Xóa";
 }
 
-<h3>Bạn có chắc muốn đặt lại mật khẩu thành: "123"?</h3>
+<h3>Bạn có chắc muốn xóa nhân viên?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -14,6 +14,22 @@
 
         <dd>
             @Html.DisplayFor(model => model.hoTen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.taiKhoan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.taiKhoan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CCCD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CCCD)
         </dd>
 
         <dt>
@@ -57,11 +73,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.taiKhoan)
+            @Html.DisplayNameFor(model => model.chucVu)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.taiKhoan)
+            @(Model.chucVu == 1 ? "Admin" : "Nhân viên")
         </dd>
 
     </dl>
@@ -71,8 +87,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Đặt lại mật khẩu" class="btn btn-primary" /> |
-            @Html.ActionLink("Trở về", "Edit", new { id = Model.id })
+            <input type="submit" value="Xóa" class="btn btn-danger" /> |
+            @Html.ActionLink("Trở về", "Index")
         </div>
     }
 </div>

@@ -1,7 +1,7 @@
-﻿@model IEnumerable<NStore.Models.EF.KhachHang>
+﻿@model IEnumerable<NStore.Models.EF.DanhMuc>
 
 @{
-    ViewBag.Title = "Quản Lý Khách Hàng";
+    ViewBag.Title = "Quản Lý Danh Mục";
 }
 @section styles{
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
@@ -11,14 +11,14 @@
     <div class="container-xl">
         <div class="table-responsive">
             <div class="table-wrapper">
-                <h2 class="table-title">Danh sách <b>khách hàng</b></h2>
+                <h2 class="table-title">Danh sách <b>danh mục</b></h2>
                 <div class="table-add">
                     <div class="row">
                         <div class="col-sm-8">
                             <a href="@Url.Action("Create")" class="btn btn-success"><i class="material-icons">&#xE147;</i> <span>Thêm Mới</span></a>
                         </div>
                         <div class="col-sm-4">
-                            @using (Html.BeginForm("Index", "Customer", FormMethod.Get))
+                            @using (Html.BeginForm("Index", "Category", FormMethod.Get))
                             {
                                 <div class="search-box">
                                     <i class="material-icons">&#xE8B6;</i>
@@ -32,25 +32,10 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.hoTen)
+                                @Html.DisplayNameFor(model => model.tenDanhMuc)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.taiKhoan)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.email)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.soDienThoai)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.ngaySinh)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.gioiTinh)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.diaChi)
+                                @Html.DisplayNameFor(model => model.NhomDanhMuc.tenNhomDanhMuc)
                             </th>
                             <th>Chức năng</th>
                         </tr>
@@ -60,25 +45,10 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.hoTen)
+                                    @Html.DisplayFor(modelItem => item.tenDanhMuc)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.taiKhoan)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.email)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.soDienThoai)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ngaySinh)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.gioiTinh)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.diaChi)
+                                    @Html.DisplayFor(modelItem => item.NhomDanhMuc.tenNhomDanhMuc)
                                 </td>
                                 <td>
                                     <a href="@Url.Action("Details", new { id = item.id })" class="view" title="Xem" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
