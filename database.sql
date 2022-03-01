@@ -30,7 +30,6 @@ CREATE TABLE NhanVien(
 	diaChi NVARCHAR(255),
 	chucVu TINYINT ---1.Admin---2.Nhân viên
 )
-INSERT INTO NhanVien VALUES('admin',123,N'Trần Tuấn Dũng',1234567891012,'dungtran@gmail.com',0989166427,'11-2-2001','male',N'Hà Nội',1)
 CREATE TABLE NhomDanhMuc(
 	id INT PRIMARY KEY IDENTITY,
 	tenNhomDanhMuc NVARCHAR(50),
