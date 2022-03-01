@@ -10,124 +10,136 @@ using NStore.Models.EF;
 
 namespace NStore.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "admin, mod")]
-    public class CustomerController : Controller
+    [Authorize(Roles = "admin")]
+    public class StaffController : Controller
     {
         private NStoreEntities db = new NStoreEntities();
 
-        // GET: Admin/Customer
+        // GET: Admin/Staff
         public ActionResult Index(string q)
         {
-            if(q != null)
+            if (q != null)
             {
-                return View(db.KhachHang.Where(x => 
-                                        x.hoTen.Contains(q) || 
+                return View(db.NhanVien.Where(x =>
+                                        x.hoTen.Contains(q) ||
                                         x.taiKhoan.Contains(q) ||
-                                        x.email.Contains(q) || 
-                                        x.soDienThoai.Contains(q) || 
+                                        x.CCCD.Contains(q) ||
+                                        x.email.Contains(q) ||
+                                        x.soDienThoai.Contains(q) ||
                                         x.diaChi.Contains(q)
                                         ).ToList());
             }
-            return View(db.KhachHang.ToList());
+            return View(db.NhanVien.ToList());
         }
 
-        // GET: Admin/Customer/Details/5
+        // GET: Admin/Staff/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            KhachHang khachHang = db.KhachHang.Find(id);
-            if (khachHang == null)
+            NhanVien nhanVien = db.NhanVien.Find(id);
+            if (nhanVien == null)
             {
                 return HttpNotFound();
             }
-            return View(khachHang);
+            return View(nhanVien);
         }
 
-        // GET: Admin/Customer/Create
+        public List<SelectListItem> GetRoles()
+        {
+            var chucVu = new List<SelectListItem>();
+            chucVu.Add(new SelectListItem() { Value = "1", Text = "Admin" });
+            chucVu.Add(new SelectListItem() { Value = "2", Text = "Nhân viên" });
+            return chucVu;
+        }
+
+        // GET: Admin/Staff/Create
         public ActionResult Create()
         {
+            ViewBag.chucVu = new SelectList(GetRoles(), "Value", "Text");
             return View();
         }
 
-        // POST: Admin/Customer/Create
+        // POST: Admin/Staff/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,taiKhoan,matKhau,hoTen,email,soDienThoai,diaChi,gioiTinh,ngaySinh")] KhachHang khachHang)
+        public ActionResult Create([Bind(Include = "id,taiKhoan,matKhau,hoTen,CCCD,email,soDienThoai,ngaySinh,gioiTinh,diaChi,chucVu")] NhanVien nhanVien)
         {
-            int count = db.KhachHang.Where(x => x.taiKhoan == khachHang.taiKhoan).Count();
-            if(count > 0)
+            int count = db.NhanVien.Where(x => x.taiKhoan == nhanVien.taiKhoan).Count();
+            if (count > 0)
             {
-                ModelState.AddModelError("", "Tài khoản đã có người đăng ký");
+                ModelState.AddModelError("", "Tài khoản đã tồn tại");
             }
             if (ModelState.IsValid)
             {
-                khachHang.matKhau = Code.Md5hash.md5(khachHang.matKhau);
-                db.KhachHang.Add(khachHang);
+                nhanVien.matKhau = Code.Md5hash.md5(nhanVien.matKhau);
+                db.NhanVien.Add(nhanVien);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            return View(khachHang);
+            ViewBag.chucVu = new SelectList(GetRoles(), "Value", "Text", nhanVien.chucVu);
+            return View(nhanVien);
         }
 
-        // GET: Admin/Customer/Edit/5
+        // GET: Admin/Staff/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            KhachHang khachHang = db.KhachHang.Find(id);
-            if (khachHang == null)
+            NhanVien nhanVien = db.NhanVien.Find(id);
+            if (nhanVien == null)
             {
                 return HttpNotFound();
             }
-            return View(khachHang);
+            ViewBag.chucVu = new SelectList(GetRoles(), "Value", "Text", nhanVien.chucVu);
+            return View(nhanVien);
         }
 
-        // POST: Admin/Customer/Edit/5
+        // POST: Admin/Staff/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,taiKhoan,matKhau,hoTen,email,soDienThoai,diaChi,gioiTinh,ngaySinh")] KhachHang khachHang)
+        public ActionResult Edit([Bind(Include = "id,taiKhoan,matKhau,hoTen,CCCD,email,soDienThoai,ngaySinh,gioiTinh,diaChi,chucVu")] NhanVien nhanVien)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(khachHang).State = EntityState.Modified;
+                db.Entry(nhanVien).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(khachHang);
+            ViewBag.chucVu = new SelectList(GetRoles(), "Value", "Text", nhanVien.chucVu);
+            return View(nhanVien);
         }
 
-        // GET: Admin/Customer/Delete/5
+        // GET: Admin/Staff/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            KhachHang khachHang = db.KhachHang.Find(id);
-            if (khachHang == null)
+            NhanVien nhanVien = db.NhanVien.Find(id);
+            if (nhanVien == null)
             {
                 return HttpNotFound();
             }
-            return View(khachHang);
+            return View(nhanVien);
         }
 
-        // POST: Admin/Customer/Delete/5
+        // POST: Admin/Staff/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            KhachHang khachHang = db.KhachHang.Find(id);
-            db.KhachHang.Remove(khachHang);
+            NhanVien nhanVien = db.NhanVien.Find(id);
+            db.NhanVien.Remove(nhanVien);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -139,12 +151,12 @@ namespace NStore.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            KhachHang khachHang = db.KhachHang.Find(id);
-            if (khachHang == null)
+            NhanVien nhanVien = db.NhanVien.Find(id);
+            if (nhanVien == null)
             {
                 return HttpNotFound();
             }
-            return View(khachHang);
+            return View(nhanVien);
         }
 
         // POST: Admin/Account/ResetPass/5
@@ -152,8 +164,8 @@ namespace NStore.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ResetPassConfirmed(int id)
         {
-            KhachHang khachHang = db.KhachHang.Find(id);
-            khachHang.matKhau = Code.Md5hash.md5("123");
+            NhanVien nhanVien = db.NhanVien.Find(id);
+            nhanVien.matKhau = Code.Md5hash.md5("123");
             db.SaveChanges();
             return RedirectToAction("Index");
         }

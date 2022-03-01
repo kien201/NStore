@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Html.Action("CheckAuthenticate", "Login");
+    var curCustomer = Session["curCustomer"] as NStore.Models.EF.KhachHang;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -24,12 +28,16 @@
 
     <link rel="stylesheet" href="~/assets/css/plugins/nouislider/nouislider.css">
     <style>
+        .banner-cats {
+            background: no-repeat center / cover;
+            min-height: 440px;
+        }
+
         .header-search-wrapper .form-control {
             padding: 1.2rem;
         }
     </style>
 </head>
-
 <body>
     <div class="page-wrapper">
         <header class="header header-10 header-intro-clearance">
@@ -55,7 +63,7 @@
                             <i class="icon-bars"></i>
                         </button>
 
-                        <a href="index.html" class="logo">
+                        <a href="@Url.Action("Index", "Home")" class="logo">
                             <img src="~/assets/images/demos/demo-13/logo.png" alt="NStore Logo" width="110">
                         </a>
                     </div><!-- End .header-left -->
@@ -75,76 +83,98 @@
 
                     <div class="header-right">
                         <div class="header-dropdown-link">
-                            <a href="wishlist.html" class="wishlist-link">
-                                <i class="icon-heart-o"></i>
-                                <span class="wishlist-count">3</span>
-                                <span class="wishlist-txt">Yêu Thích</span>
-                            </a>
+                            @if (curCustomer != null)
+                            {
+                                <a href="#" class="wishlist-link">
+                                    <i class="icon-heart-o"></i>
+                                    <span class="wishlist-count">@curCustomer.SanPhamYeuThich.Count</span>
+                                    <span class="wishlist-txt">Yêu Thích</span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("Index", "Login")" class="wishlist-link">
+                                    <i class="icon-heart-o"></i>
+                                    <span class="wishlist-txt">Yêu Thích</span>
+                                </a>
+                            }
+                            @if (curCustomer != null)
+                            {
+                                <div class="dropdown cart-dropdown">
+                                    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                                        <i class="icon-shopping-cart"></i>
+                                        <span class="cart-count">@curCustomer.GioHang.Count</span>
+                                        <span class="cart-txt">Giỏ Hàng</span>
+                                    </a>
 
-                            <div class="dropdown cart-dropdown">
-                                <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <div class="dropdown-cart-products">
+                                            <div class="product">
+                                                <div class="product-cart-details">
+                                                    <h4 class="product-title">
+                                                        <a href="product.html">Beige knitted elastic runner shoes</a>
+                                                    </h4>
+
+                                                    <span class="cart-product-info">
+                                                        <span class="cart-product-qty">1</span>
+                                                        x $84.00
+                                                    </span>
+                                                </div><!-- End .product-cart-details -->
+
+                                                <figure class="product-image-container">
+                                                    <a href="product.html" class="product-image">
+                                                        <img src="~/assets/images/products/cart/product-1.jpg" alt="product">
+                                                    </a>
+                                                </figure>
+                                            </div><!-- End .product -->
+
+                                            <div class="product">
+                                                <div class="product-cart-details">
+                                                    <h4 class="product-title">
+                                                        <a href="product.html">Blue utility pinafore denim dress</a>
+                                                    </h4>
+
+                                                    <span class="cart-product-info">
+                                                        <span class="cart-product-qty">1</span>
+                                                        x $76.00
+                                                    </span>
+                                                </div><!-- End .product-cart-details -->
+
+                                                <figure class="product-image-container">
+                                                    <a href="product.html" class="product-image">
+                                                        <img src="~/assets/images/products/cart/product-2.jpg" alt="product">
+                                                    </a>
+                                                </figure>
+                                            </div><!-- End .product -->
+                                        </div><!-- End .cart-product -->
+
+                                        <div class="dropdown-cart-total">
+                                            <span>Tổng</span>
+
+                                            <span class="cart-total-price">160.000đ</span>
+                                        </div><!-- End .dropdown-cart-total -->
+
+                                        <div class="dropdown-cart-action">
+                                            <a href="cart.html" class="btn btn-primary">Xem Giỏ Hàng</a>
+                                        </div><!-- End .dropdown-cart-total -->
+                                    </div><!-- End .dropdown-menu -->
+                                </div><!-- End .cart-dropdown -->
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("Index", "Login")" class="wishlist-link">
                                     <i class="icon-shopping-cart"></i>
-                                    <span class="cart-count">2</span>
                                     <span class="cart-txt">Giỏ Hàng</span>
                                 </a>
+                            }
 
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <div class="dropdown-cart-products">
-                                        <div class="product">
-                                            <div class="product-cart-details">
-                                                <h4 class="product-title">
-                                                    <a href="product.html">Beige knitted elastic runner shoes</a>
-                                                </h4>
-
-                                                <span class="cart-product-info">
-                                                    <span class="cart-product-qty">1</span>
-                                                    x $84.00
-                                                </span>
-                                            </div><!-- End .product-cart-details -->
-
-                                            <figure class="product-image-container">
-                                                <a href="product.html" class="product-image">
-                                                    <img src="~/assets/images/products/cart/product-1.jpg" alt="product">
-                                                </a>
-                                            </figure>
-                                        </div><!-- End .product -->
-
-                                        <div class="product">
-                                            <div class="product-cart-details">
-                                                <h4 class="product-title">
-                                                    <a href="product.html">Blue utility pinafore denim dress</a>
-                                                </h4>
-
-                                                <span class="cart-product-info">
-                                                    <span class="cart-product-qty">1</span>
-                                                    x $76.00
-                                                </span>
-                                            </div><!-- End .product-cart-details -->
-
-                                            <figure class="product-image-container">
-                                                <a href="product.html" class="product-image">
-                                                    <img src="~/assets/images/products/cart/product-2.jpg" alt="product">
-                                                </a>
-                                            </figure>
-                                        </div><!-- End .product -->
-                                    </div><!-- End .cart-product -->
-
-                                    <div class="dropdown-cart-total">
-                                        <span>Tổng</span>
-
-                                        <span class="cart-total-price">160.000đ</span>
-                                    </div><!-- End .dropdown-cart-total -->
-
-                                    <div class="dropdown-cart-action">
-                                        <a href="cart.html" class="btn btn-primary">Xem Giỏ Hàng</a>
-                                    </div><!-- End .dropdown-cart-total -->
-                                </div><!-- End .dropdown-menu -->
-                            </div><!-- End .cart-dropdown -->
-
-                            <a href="dashboard.html" class="wishlist-link">
-                                <i class="icon-user"></i>
-                                <span class="wishlist-txt">Tài Khoản</span>
-                            </a>
+                            @if (curCustomer != null)
+                            {
+                                <a href="dashboard.html" class="wishlist-link">
+                                    <i class="icon-user"></i>
+                                    <span class="wishlist-txt">Tài Khoản</span>
+                                </a>
+                            }
                         </div>
                     </div><!-- End .header-right -->
                 </div><!-- End .container -->
@@ -153,37 +183,15 @@
             <div class="header-bottom sticky-header">
                 <div class="container">
                     <div class="header-left">
-                        <div class="dropdown category-dropdown show is-on" data-visible="true">
-                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-display="static" title="Browse Categories">
+                        <div class="dropdown category-dropdown" data-visible="true">
+                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Browse Categories">
                                 Tất Cả Danh Mục
                             </a>
 
-                            <div class="dropdown-menu show">
+                            <div class="dropdown-menu">
                                 <nav class="side-nav">
                                     <ul class="menu-vertical sf-arrows">
-                                        <li class="megamenu-container">
-                                            <a class="sf-with-ul" href="#">Phòng Khách</a>
-
-                                            <div class="megamenu megamenu-md">
-                                                <div class="row no-gutters">
-                                                    <div class="col-md-4">
-                                                        <div class="menu-col">
-                                                            <div class="menu-title">Phòng Khách</div><!-- End .menu-title -->
-                                                            <ul>
-                                                                <li><a href="#">Desktop Computersdlsfns lwklewfn lflds</a></li>
-                                                                <li><a href="#">Monitors</a></li>
-                                                                <li><a href="#">Laptops</a></li>
-                                                                <li><a href="#">Laptops</a></li>
-                                                                <li><a href="#">Laptops</a></li>
-                                                                <li><a href="#">Laptops</a></li>
-                                                            </ul>
-                                                        </div><!-- End .menu-col -->
-                                                    </div><!-- End .col-md-8 -->
-
-                                                    <div class="col-md-8 banner-cats"></div><!-- End .col-md-4 -->
-                                                </div><!-- End .row -->
-                                            </div><!-- End .megamenu -->
-                                        </li>
+                                        @Html.Action("CategoryMenuLayout", "Home")
                                     </ul><!-- End .menu-vertical -->
                                 </nav><!-- End .side-nav -->
                             </div><!-- End .dropdown-menu -->
@@ -208,7 +216,7 @@
                         </nav><!-- End .main-nav -->
                     </div><!-- End .col-lg-9 -->
                     <div class="header-right">
-                        <i class="la la-lightbulb-o"></i><p>Giảm giá lên đến 30%</span></p>
+                        <i class="la la-lightbulb-o"></i><p>Giảm giá lên đến 30%</p>
                     </div>
                 </div><!-- End .container -->
             </div><!-- End .header-bottom -->
@@ -358,21 +366,15 @@
                         <ul class="mobile-cats-menu">
                             <li class="active"><a href="#">Trang Chủ</a></li>
                             <li><a href="#">Sản Phẩm</a></li>
-                            <li><a href="#">Giới thiệu</a></li>
-                            <li><a href="#">Liên hệ</a></li>
+                            <li><a href="#">Giới Thiệu</a></li>
+                            <li><a href="#">Liên Hệ</a></li>
                         </ul><!-- End .mobile-cats-menu -->
                     </nav><!-- End .mobile-cats-nav -->
                 </div><!-- .End .tab-pane -->
                 <div class="tab-pane fade" id="mobile-cats-tab" role="tabpanel" aria-labelledby="mobile-menu-link">
                     <nav class="mobile-nav">
                         <ul class="mobile-menu">
-                            <li>
-                                <a href="#!">Elements</a>
-                                <ul>
-                                    <li><a href="elements-products.html">Products</a></li>
-                                    <li><a href="elements-products.html">Products</a></li>
-                                </ul>
-                            </li>
+                            @Html.Action("CategoryMenuMobileLayout", "Home")
                         </ul>
                     </nav><!-- End .mobile-nav -->
                 </div><!-- .End .tab-pane -->
@@ -398,63 +400,72 @@
                         <div class="form-tab">
                             <ul class="nav nav-pills nav-fill nav-border-anim" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin" role="tab" aria-controls="signin" aria-selected="true">Đăng Nhập</a>
+                                    <a class="nav-link active" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="true">Đăng Nhập</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Đăng Ký</a>
+                                    <a class="nav-link" id="register-tab-2" data-toggle="tab" href="#register-2" role="tab" aria-controls="register-2" aria-selected="false">Đăng Ký</a>
                                 </li>
                             </ul>
-                            <div class="tab-content" id="tab-content-5">
-                                <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
-                                    <form action="#">
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
+                                    @using (Html.BeginForm("Index", "Login"))
+                                    {
+                                        @Html.AntiForgeryToken()
                                         <div class="form-group">
-                                            <label for="singin-email">Tài khoản *</label>
-                                            <input type="text" class="form-control" id="singin-email" name="singin-email" required>
+                                            <label for="signin-username-2">Tài khoản *</label>
+                                            <input type="text" class="form-control" id="signin-username-2" name="taiKhoan" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-group">
-                                            <label for="singin-password">Mật khẩu *</label>
-                                            <input type="password" class="form-control" id="singin-password" name="singin-password" required>
+                                            <label for="signin-pass-2">Mật khẩu *</label>
+                                            <input type="password" class="form-control" id="signin-pass-2" name="matKhau" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-footer mb-0">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="signin-remember">
-                                                <label class="custom-control-label" for="signin-remember">Nhớ tài khoản</label>
-                                            </div><!-- End .custom-checkbox -->
-
                                             <button type="submit" class="btn btn-outline-primary-2">
                                                 <span>Đăng Nhập</span>
                                                 <i class="icon-long-arrow-right"></i>
                                             </button>
+
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="signin-remember-2" name="signinRemember" />
+                                                <label class="custom-control-label" for="signin-remember-2">Nhớ mật khẩu</label>
+                                            </div><!-- End .custom-checkbox -->
                                         </div><!-- End .form-footer -->
-                                    </form>
+                                    }
                                 </div><!-- .End .tab-pane -->
-                                <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                                    <form action="#">
+                                <div class="tab-pane fade" id="register-2" role="tabpanel" aria-labelledby="register-tab-2">
+                                    @using (Html.BeginForm("Register", "Login"))
+                                    {
+                                        @Html.AntiForgeryToken()
                                         <div class="form-group">
-                                            <label for="register-name">Họ tên *</label>
-                                            <input type="text" class="form-control" id="register-name" name="register-name" required>
+                                            <label for="register-name-2">Họ tên *</label>
+                                            <input type="text" class="form-control" id="register-name-2" name="hoTen" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-group">
-                                            <label for="register-email">Email *</label>
-                                            <input type="email" class="form-control" id="register-email" name="register-email" required>
+                                            <label for="register-email-2">Email *</label>
+                                            <input type="email" class="form-control" id="register-email-2" name="email" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-group">
-                                            <label for="register-username">Tài khoản *</label>
-                                            <input type="text" class="form-control" id="register-username" name="register-username" required>
+                                            <label for="register-phone-number-2">Số điện thoại *</label>
+                                            <input type="text" class="form-control" id="register-phone-number-2" name="soDienThoai" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-group">
-                                            <label for="register-password">Mật khẩu *</label>
-                                            <input type="password" class="form-control" id="register-password" name="register-password" required>
+                                            <label for="register-username-2">Tài khoản *</label>
+                                            <input type="text" class="form-control" id="register-username-2" name="taiKhoan" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-group">
-                                            <label for="retype-password">Nhập lại mật khẩu *</label>
-                                            <input type="password" class="form-control" id="retype-password" name="retype-password" required>
+                                            <label for="register-pass-2">Mật khẩu *</label>
+                                            <input type="password" class="form-control" id="register-pass-2" name="matKhau" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-group">
+                                            <label for="retype-password-2">Nhập lại mật khẩu *</label>
+                                            <input type="password" class="form-control" id="retype-password-2" name="retypePass" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-footer mb-0">
@@ -463,7 +474,7 @@
                                                 <i class="icon-long-arrow-right"></i>
                                             </button>
                                         </div><!-- End .form-footer -->
-                                    </form>
+                                    }
                                 </div><!-- .End .tab-pane -->
                             </div><!-- End .tab-content -->
                         </div><!-- End .form-tab -->
@@ -488,7 +499,6 @@
     <!-- Main JS File -->
     <script src="~/assets/js/main.js"></script>
     <script src="~/assets/js/demo-13.js"></script>
-
-    
+    @RenderSection("scripts", false)
 </body>
 </html>

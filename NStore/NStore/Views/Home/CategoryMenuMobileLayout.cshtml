@@ -1,0 +1,14 @@
+﻿@model IEnumerable<NStore.Models.EF.NhomDanhMuc>
+
+@foreach (var item in Model)
+{
+    <li>
+        <a class="text-capitalize" href="#!">@item.tenNhomDanhMuc</a>
+        <ul>
+            @foreach (var catItem in item.DanhMuc)
+            {
+                <li><a class="text-capitalize" href="elements-products.html">@catItem.tenDanhMuc</a></li>
+            }
+        </ul>
+    </li>
+}

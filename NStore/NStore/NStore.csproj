@@ -129,14 +129,20 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoryGroupController.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StaffController.cs" />
     <Compile Include="Areas\Admin\Controllers\SanPhamController.cs" />
     <Compile Include="Code\Md5hash.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\SanPhamController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomAuth.cs" />
     <Compile Include="Models\EF\ChiTietDonHang.cs">
       <DependentUpon>ModelNStore.tt</DependentUpon>
     </Compile>
@@ -149,6 +155,8 @@
     <Compile Include="Models\EF\DanhMuc.cs">
       <DependentUpon>ModelNStore.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EF\DanhMucMetadata.cs" />
+    <Compile Include="Models\EF\DanhMucPartial.cs" />
     <Compile Include="Models\EF\DonHang.cs">
       <DependentUpon>ModelNStore.tt</DependentUpon>
     </Compile>
@@ -181,12 +189,16 @@
     <Compile Include="Models\EF\NhanVien.cs">
       <DependentUpon>ModelNStore.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EF\NhanVienMetadata.cs" />
+    <Compile Include="Models\EF\NhanVienPartial.cs" />
     <Compile Include="Models\EF\NhanVienTiepNhanDonHang.cs">
       <DependentUpon>ModelNStore.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\NhomDanhMuc.cs">
       <DependentUpon>ModelNStore.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EF\NhomDanhMucMetadata.cs" />
+    <Compile Include="Models\EF\NhomDanhMucPartial.cs" />
     <Compile Include="Models\EF\PhieuNhap.cs">
       <DependentUpon>ModelNStore.tt</DependentUpon>
     </Compile>
@@ -212,7 +224,6 @@
     <Content Include="assets\css\bootstrap.min.css" />
     <Content Include="assets\css\demos\demo-13.css" />
     <Content Include="assets\css\demos\skin-demo-13.css" />
-    <Content Include="assets\css\layout.css" />
     <Content Include="assets\css\main.min.css" />
     <Content Include="assets\css\plugins\jquery.countdown.css" />
     <Content Include="assets\css\plugins\nouislider\nouislider.css" />
@@ -229,6 +240,7 @@
     <Content Include="assets\images\backgrounds\bg-1.jpg" />
     <Content Include="assets\images\backgrounds\bg-2.jpg" />
     <Content Include="assets\images\backgrounds\bg-4.jpg" />
+    <Content Include="assets\images\backgrounds\admin-login-bg.jpg" />
     <Content Include="assets\images\backgrounds\cta\bg-1.jpg" />
     <Content Include="assets\images\backgrounds\cta\bg-2.jpg" />
     <Content Include="assets\images\backgrounds\cta\bg-3.jpg" />
@@ -410,6 +422,7 @@
     <Content Include="assets\images\category\boxed\banner-6.jpg" />
     <Content Include="assets\images\category\boxed\banner-7.jpg" />
     <Content Include="assets\images\category\boxed\banner-8.jpg" />
+    <Content Include="assets\images\category\default-image.jpg" />
     <Content Include="assets\images\category\fullwidth-page\banner-1.jpg" />
     <Content Include="assets\images\category\fullwidth-page\banner-2.jpg" />
     <Content Include="assets\images\category\fullwidth-page\banner-3.jpg" />
@@ -802,6 +815,24 @@
     <Content Include="Areas\Admin\Views\Customer\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Customer\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Customer\ResetPass.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\CategoryGroup\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\CategoryGroup\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\CategoryGroup\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\CategoryGroup\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\CategoryGroup\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Staff\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Staff\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Staff\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Staff\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Staff\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Staff\ResetPass.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\Index.cshtml" />
     <Content Include="Areas\Admin\Views\SanPham\Create.cshtml" />
     <Content Include="Areas\Admin\Views\SanPham\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\SanPham\Details.cshtml" />
@@ -830,6 +861,9 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\CategoryMenuLayout.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Home\CategoryMenuMobileLayout.cshtml" />
     <Content Include="Views\SanPham\SanPhamDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>

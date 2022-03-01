@@ -1,0 +1,32 @@
+﻿@model NStore.Models.EF.NhomDanhMuc
+
+@{
+    ViewBag.Title = "Chi Tiết";
+}
+
+<div>
+    <h4>Thông tin nhóm danh mục</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tenNhomDanhMuc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tenNhomDanhMuc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.img)
+        </dt>
+
+        <dd>
+            <img src="~/assets/images/category/@Model.img" alt="??" width="35%" />
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Trở về", "Index")
+</p>

@@ -1,0 +1,104 @@
+﻿@model NStore.Models.EF.KhachHang
+
+@{
+    ViewBag.Title = "Đăng Nhập";
+}
+
+<div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17" style="background-image: url(@Url.Content("~/assets/images/backgrounds/login-bg.jpg"))">
+    <div class="container">
+        <div class="form-box">
+            <div class="form-tab">
+                <ul class="nav nav-pills nav-fill nav-border-anim" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin" role="tab" aria-controls="signin" aria-selected="true">Đăng Nhập</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Đăng Ký</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+                        @using (Html.BeginForm("Index", "Login"))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                <label for="signin-username">Tài khoản *</label>
+                                <input type="text" class="form-control" id="signin-username" name="taiKhoan" required>
+                            </div><!-- End .form-group -->
+
+                            <div class="form-group">
+                                <label for="signin-pass">Mật khẩu *</label>
+                                <input type="password" class="form-control" id="signin-pass" name="matKhau" required>
+                            </div><!-- End .form-group -->
+
+                            <div class="form-footer mb-0">
+                                <button type="submit" name="btnLogin" class="btn btn-outline-primary-2">
+                                    <span>Đăng Nhập</span>
+                                    <i class="icon-long-arrow-right"></i>
+                                </button>
+
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="signin-remember" name="signinRemember" />
+                                    <label class="custom-control-label" for="signin-remember">Nhớ mật khẩu</label>
+                                </div><!-- End .custom-checkbox -->
+                            </div><!-- End .form-footer -->
+                        }
+                    </div><!-- .End .tab-pane -->
+                    <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                        @using (Html.BeginForm("Register", "Login"))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.hoTen) *
+                                @Html.EditorFor(model => model.hoTen, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.hoTen, "", new { @class = "text-danger" })
+                            </div><!-- End .form-group -->
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.email) *
+                                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                            </div><!-- End .form-group -->
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.soDienThoai) *
+                                @Html.EditorFor(model => model.soDienThoai, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.soDienThoai, "", new { @class = "text-danger" })
+                            </div><!-- End .form-group -->
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.taiKhoan) *
+                                @Html.EditorFor(model => model.taiKhoan, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.taiKhoan, "", new { @class = "text-danger" })
+                            </div><!-- End .form-group -->
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.matKhau) *
+                                @Html.EditorFor(model => model.matKhau, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.matKhau, "", new { @class = "text-danger" })
+                            </div><!-- End .form-group -->
+
+                            <div class="form-group">
+                                <label for="retype-password">Nhập lại mật khẩu *</label>
+                                <input type="password" class="form-control" id="retype-password" name="retypePass" required>
+                            </div><!-- End .form-group -->
+
+                            <div class="form-footer mb-0">
+                                <button type="submit" class="btn btn-outline-primary-2">
+                                    <span>Đăng Ký</span>
+                                    <i class="icon-long-arrow-right"></i>
+                                </button>
+                            </div><!-- End .form-footer -->
+                        }
+                    </div><!-- .End .tab-pane -->
+                </div><!-- End .tab-content -->
+            </div><!-- End .form-tab -->
+        </div><!-- End .form-box -->
+    </div><!-- End .container -->
+</div><!-- End .login-page section-bg -->
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

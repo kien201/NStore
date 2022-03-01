@@ -1,5 +1,4 @@
-﻿@*@Html.Action("CheckLogin", "Login")*@
-
+﻿@Html.Action("CheckAuthenticate", "Login")
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,21 +49,21 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             Khách Hàng
                         </a>
-                        <a class="nav-link" href="@Url.Action("Index", "NhomDanhMuc")">
+                        <a class="nav-link" href="@Url.Action("Index", "CategoryGroup")">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Nhóm Danh Mục Sản Phẩm
+                            Nhóm Danh Mục
                         </a>
-                        <a class="nav-link" href="@Url.Action("Index", "DanhMuc")">
+                        <a class="nav-link" href="@Url.Action("Index", "Category")">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Danh Mục Sản Phẩm
+                            Danh Mục
+                        </a>
+                        <a class="nav-link" href="@Url.Action("Index", "Staff")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Nhân Viên
                         </a>
                         <a class="nav-link" href="@Url.Action("Index", "SanPham")">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             Sản Phẩm
-                        </a>
-                        <a class="nav-link" href="@Url.Action("Index", "SanPhamImage")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Ảnh Sản Phẩm
                         </a>
                     </div>
 
@@ -72,8 +71,7 @@
                 <div class="sb-sidenav-footer">
                     <span class="small">
                         Người dùng:
-                        @{ var curUser = Session["curUser"] as Dictionary<string, string>; }
-                        @*@curUser["displayName"]*@
+                        @((Session["curStaff"] as NStore.Models.EF.NhanVien).hoTen)
                     </span>
                 </div>
             </nav>
