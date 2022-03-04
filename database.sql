@@ -77,7 +77,7 @@ CREATE TABLE ChiTietPhieuNhap(
 	id INT PRIMARY KEY IDENTITY,
 	idPhieuNhap INT FOREIGN KEY REFERENCES PhieuNhap(id) ON DELETE CASCADE,
 	idSanPham INT FOREIGN KEY REFERENCES SanPham(id) ON DELETE SET NULL,
-	soLuongNhap INT,
+	soLuongNhap INT, 
 	donGiaNhap INT
 )
 CREATE TABLE PhieuXuat(

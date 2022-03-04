@@ -133,16 +133,23 @@
     <Compile Include="Areas\Admin\Controllers\CategoryGroupController.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NhaCungCapController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PhieuNhapController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PhieuXuatController.cs" />
     <Compile Include="Areas\Admin\Controllers\StaffController.cs" />
     <Compile Include="Areas\Admin\Controllers\SanPhamController.cs" />
+    <Compile Include="Areas\Admin\Controllers\WishListController.cs" />
     <Compile Include="Code\Md5hash.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\SanPhamController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CustomAuth.cs" />
+    <Compile Include="Models\CustomProduct.cs" />
+    <Compile Include="Models\CustomStock.cs" />
     <Compile Include="Models\EF\ChiTietDonHang.cs">
       <DependentUpon>ModelNStore.tt</DependentUpon>
     </Compile>
@@ -186,6 +193,8 @@
     <Compile Include="Models\EF\NhaCungCap.cs">
       <DependentUpon>ModelNStore.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EF\NhaCungCapMetadata.cs" />
+    <Compile Include="Models\EF\NhaCungCapPartial.cs" />
     <Compile Include="Models\EF\NhanVien.cs">
       <DependentUpon>ModelNStore.tt</DependentUpon>
     </Compile>
@@ -202,9 +211,13 @@
     <Compile Include="Models\EF\PhieuNhap.cs">
       <DependentUpon>ModelNStore.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EF\PhieuNhapMetadata.cs" />
+    <Compile Include="Models\EF\PhieuNhapPartial.cs" />
     <Compile Include="Models\EF\PhieuXuat.cs">
       <DependentUpon>ModelNStore.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EF\PhieuXuatMetadata.cs" />
+    <Compile Include="Models\EF\PhieuXuatPartial.cs" />
     <Compile Include="Models\EF\SanPham.cs">
       <DependentUpon>ModelNStore.tt</DependentUpon>
     </Compile>
@@ -216,6 +229,8 @@
     <Compile Include="Models\EF\SanPhamYeuThich.cs">
       <DependentUpon>ModelNStore.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EF\SanPhamYeuThichMetadata.cs" />
+    <Compile Include="Models\EF\SanPhamYeuThichPartial.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -758,7 +773,6 @@
     <Content Include="assets\js\main.js" />
     <Content Include="assets\js\nouislider.min.js" />
     <Content Include="assets\js\owl.carousel.min.js" />
-    <Content Include="assets\js\sanpham2.js" />
     <Content Include="assets\js\scripts.js" />
     <Content Include="assets\js\superfish.min.js" />
     <Content Include="assets\js\wNumb.js" />
@@ -838,6 +852,26 @@
     <Content Include="Areas\Admin\Views\SanPham\Details.cshtml" />
     <Content Include="Areas\Admin\Views\SanPham\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\SanPham\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\WishList\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\WishList\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\WishList\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\WishList\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\WishList\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuNhap\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuNhap\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuNhap\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuNhap\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuNhap\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuXuat\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuXuat\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuXuat\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuXuat\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuXuat\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\NhaCungCap\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\NhaCungCap\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\NhaCungCap\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\NhaCungCap\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\NhaCungCap\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -864,7 +898,8 @@
     <Content Include="Views\Home\CategoryMenuLayout.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Home\CategoryMenuMobileLayout.cshtml" />
-    <Content Include="Views\SanPham\SanPhamDetail.cshtml" />
+    <Content Include="Views\Product\ProductDetail.cshtml" />
+    <Content Include="Views\User\Wishlist.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
