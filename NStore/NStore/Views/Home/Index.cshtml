@@ -144,20 +144,40 @@
         })
         menu[0].classList.add("active");
 
-            //$('.intro-slider').owlCarousel({
-            //    items: 1,
-            //    loop: true,
-            //    autoplay: true,
-            //    autoplayTimeout: 5000,
-            //    autoplaySpeed: 1000,
-            //    autoplayHoverPause: true,
-            //    nav: true,
-            //    dots: false,
-            //    responsive: {
-            //        992: {
-            //            dots: true
-            //        }
-            //    }
-            //});
+        //$('.intro-slider').owlCarousel({
+        //    items: 1,
+        //    loop: true,
+        //    autoplay: true,
+        //    autoplayTimeout: 5000,
+        //    autoplaySpeed: 1000,
+        //    autoplayHoverPause: true,
+        //    nav: true,
+        //    dots: false,
+        //    responsive: {
+        //        992: {
+        //            dots: true
+        //        }
+        //    }
+        //});
+
+        //add product to cart
+        function AddToCartClick(productId) {
+            AddToCart(productId, 1, "add");
+        }
+
+        //add product to wishlist
+        function AddToWishlist(id) {
+            $.ajax({
+                url: '/User/Adding_Wishlist',
+                method: 'POST',
+                data: { id_sanpham: id },
+                success: function (rs) {
+                    alert(rs)
+                },
+                error: function () {
+                    alert("thất bại!")
+                }
+            })
+        }
     </script>
 }

@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "Wishlist";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <main class="main">
@@ -88,7 +87,7 @@
                                 <button class="btn btn-block btn-outline-primary-2 disabled">Hết hàng</button>
                             </td>`
                     }
-                    str += `<td class="remove-col"><button class="btn-remove removing_wishlist"id="${item.idSanPham}"><i class="icon-close"></i></button></td>
+                    str += `<td class="remove-col"><button class="btn-remove removing_wishlist"id="${item.id}"><i class="icon-close"></i></button></td>
                               </tr>`
                     return str;
                 })
@@ -97,11 +96,11 @@
 
                 $('.removing_wishlist').click(function () {
 
-                    var id_sanpham = $(this).attr('id');
+                    var id_wishlist = $(this).attr('id');
                     $.ajax({
                         url: '/User/Removing_Wishlist',
                         method: 'POST',
-                        data: { id_sanpham },
+                        data: { id: id_wishlist },
                         success: function (rs) {
                             load_wishlist();
                             alert(rs)

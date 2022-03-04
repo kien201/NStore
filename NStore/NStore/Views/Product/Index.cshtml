@@ -63,12 +63,12 @@
                                 {
                                     <span class="product-label label-sale">@item.giamGia% Giảm</span>
                                 }
-                                <a href="#">
+                                <a href="@Url.Action("ProductDetail", "Product", new { id = item.id })">
                                     <img src="~/assets/images/products/@item.img" alt="Product image" class="product-image">
                                 </a>
 
                                 <div class="product-action-vertical">
-                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>Thêm Vào Yêu Thích</span></a>
+                                    <button onclick="AddToWishlist(@item.id)" class="btn-product-icon btn-wishlist btn-expandable"><span>Thêm Vào Yêu Thích</span></button>
                                 </div><!-- End .product-action -->
                                 <div class="product-action">
                                     <button onclick="AddToCartClick(@item.id)" class="btn-product btn-cart"><span>Thêm Vào Giỏ Hàng</span></button>
@@ -79,7 +79,7 @@
                                 <div class="product-cat">
                                     <a href="@Url.Action("Index", "Product", new { category = item.idDanhMuc })">@item.DanhMuc.tenDanhMuc</a>
                                 </div><!-- End .product-cat -->
-                                <h3 class="product-title"><a href="product.html">@item.tenSanPham</a></h3><!-- End .product-title -->
+                                <h3 class="product-title"><a href="@Url.Action("ProductDetail", "Product", new { id = item.id })">@item.tenSanPham</a></h3><!-- End .product-title -->
                                 <div class="product-price">
                                     @if (item.giamGia > 0)
                                     {
@@ -157,6 +157,21 @@
         //add product to cart
         function AddToCartClick(productId) {
             AddToCart(productId, 1, "add");
+        }
+
+        //add product to wishlist
+        function AddToWishlist(id) {
+            $.ajax({
+                url: '/User/Adding_Wishlist',
+                method: 'POST',
+                data: { id_sanpham: id },
+                success: function (rs) {
+                    alert(rs)
+                },
+                error: function () {
+                    alert("thất bại!")
+                }
+            })
         }
     </script>
 }

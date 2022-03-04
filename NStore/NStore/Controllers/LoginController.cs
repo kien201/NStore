@@ -25,6 +25,8 @@ namespace NStore.Controllers
             var user = db.KhachHang.SingleOrDefault(x => x.taiKhoan == taiKhoan && x.matKhau == matKhau);
             if (user != null)
             {
+                Session.Remove("curStaff");
+                Session.Remove("curCustomer");
                 FormsAuthentication.SetAuthCookie("customer" + user.taiKhoan, signinRemember == "on");
                 return RedirectToAction("Index", "Home");
             }

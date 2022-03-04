@@ -3,6 +3,7 @@ using NStore.Models.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -74,8 +75,12 @@ namespace NStore.Controllers
 
         public ActionResult ProductDetail(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             CustomProduct ct = new CustomProduct();
-            var sp = db.SanPham.Find(2);
+            var sp = db.SanPham.Find(id);
             ct.sanpham = sp;
             ct.list_sanpham = db.SanPham.Where(x => x.idDanhMuc == sp.idDanhMuc).ToList();
             return View(ct);

@@ -28,6 +28,8 @@ namespace NStore.Areas.Admin.Controllers
             int count = db.NhanVien.Where(x => x.taiKhoan == nhanVien.taiKhoan && x.matKhau == nhanVien.matKhau).Count();
             if (count > 0)
             {
+                Session.Remove("curStaff");
+                Session.Remove("curCustomer");
                 FormsAuthentication.SetAuthCookie("staff" + nhanVien.taiKhoan, rememberPass == "on");
                 return RedirectToAction("Index", "Category");
             }

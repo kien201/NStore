@@ -139,7 +139,6 @@
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\StaffController.cs" />
     <Compile Include="Areas\Admin\Controllers\SanPhamController.cs" />
-    <Compile Include="Areas\Admin\Controllers\WishListController.cs" />
     <Compile Include="Code\Md5hash.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -859,11 +858,6 @@
     <Content Include="Areas\Admin\Views\SanPham\Details.cshtml" />
     <Content Include="Areas\Admin\Views\SanPham\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\SanPham\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\WishList\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\WishList\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\WishList\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\WishList\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\WishList\Index.cshtml" />
     <Content Include="Areas\Admin\Views\PhieuNhap\Create.cshtml" />
     <Content Include="Areas\Admin\Views\PhieuNhap\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\PhieuNhap\Details.cshtml" />

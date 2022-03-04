@@ -93,7 +93,7 @@
                             }
                             @if (curCustomer != null)
                             {
-                                <a href="#" class="wishlist-link">
+                                <a href="@Url.Action("Wishlist","User")" class="wishlist-link">
                                     <i class="icon-heart-o"></i>
                                     <span class="wishlist-count">@curCustomer.SanPhamYeuThich.Count</span>
                                     <span class="wishlist-txt">Yêu Thích</span>

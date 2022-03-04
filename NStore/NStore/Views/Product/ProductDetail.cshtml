@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "ProductDetail";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
 
@@ -52,7 +51,7 @@
                                         <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
                                     </div><!-- End .product-details-quantity -->
 
-                                    <a href="#" class="btn-product btn-cart"><span>Thêm vào giỏ hàng</span></a>
+                                    <button onclick="AddToCartClick(@Model.sanpham.id)" class="btn-product btn-cart"><span>Thêm Vào Giỏ Hàng</span></button>
                                 </div><!-- End .details-action-col -->
 
                                 <div class="details-action-wrapper adding_wishlist" id="@Model.sanpham.id">
@@ -224,6 +223,12 @@
 @section scripts{
     
 <script >
+    var menu = $(".main-nav")[0].querySelectorAll("li");
+    menu.forEach((item) => {
+        item.classList.remove("active");
+    })
+    menu[1].classList.add("active");
+
     $('.adding_wishlist').click(function () {
         var id_sanpham = $(this).attr('id');
         $.ajax({
@@ -238,5 +243,10 @@
             }
         })
     })
-</script>
+
+    //add product to cart
+    function AddToCartClick(productId) {
+        AddToCart(productId, 1, "add");
     }
+</script>
+}
