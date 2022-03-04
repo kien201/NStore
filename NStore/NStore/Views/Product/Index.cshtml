@@ -115,18 +115,12 @@
                             <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Trước
                         </a>
                     </li>
+                    <li class="page-item"><a class="page-link" href="@Url.Action("Index", new { page = page-1, category, q, sortby })">@(page-1)</a></li>
                 }
                 <li class="page-item active" aria-current="page"><a class="page-link" href="@Url.Action("Index", new { page, category, q, sortby })">@page</a></li>
                 @if (page + 1 <= pageLimit)
                 {
                     <li class="page-item"><a class="page-link" href="@Url.Action("Index", new { page = page+1, category, q, sortby })">@(page+1)</a></li>
-                }
-                @if (page + 2 <= pageLimit)
-                {
-                    <li class="page-item"><a class="page-link" href="@Url.Action("Index", new { page = page+2, category, q, sortby })">@(page+2)</a></li>
-                }
-                @if (page + 1 <= pageLimit)
-                {
                     <li class="page-item">
                         <a class="page-link page-link-next" href="@Url.Action("Index", new { page = page+1, category, q, sortby })" aria-label="Next">
                             Sau <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>

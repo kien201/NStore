@@ -31,7 +31,7 @@ namespace NStore.Areas.Admin.Controllers
                 Session.Remove("curStaff");
                 Session.Remove("curCustomer");
                 FormsAuthentication.SetAuthCookie("staff" + nhanVien.taiKhoan, rememberPass == "on");
-                return RedirectToAction("Index", "Category");
+                return RedirectToAction("Index", "Customer");
             }
             else
             {

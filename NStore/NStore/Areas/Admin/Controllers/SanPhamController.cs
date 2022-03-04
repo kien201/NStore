@@ -137,7 +137,7 @@ namespace NStore.Areas.Admin.Controllers
             var f = Request.Files["img"];
             if (f != null && f.ContentLength > 0)
             {
-                var path = Server.MapPath("~/assets/images/category/" + f.FileName);
+                var path = Server.MapPath("~/assets/images/products/" + f.FileName);
                 f.SaveAs(path);
                 sanPham.img = f.FileName;
             }

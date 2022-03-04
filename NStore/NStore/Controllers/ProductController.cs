@@ -49,7 +49,7 @@ namespace NStore.Controllers
                     break;
                 case "sales":
                     //sản phẩm được đặt nhiều nhất
-                    list = list.OrderByDescending(x => x.ChiTietDonHang.Sum(y => y.soLuong));
+                    list = list.OrderByDescending(x => x.ChiTietDonHang.Sum(y => y.soLuong)).ThenByDescending(x => x.id);
                     break;
                 case "price-asc":
                     list = list.OrderBy(x => x.donGia);
@@ -58,16 +58,16 @@ namespace NStore.Controllers
                     list = list.OrderByDescending(x => x.donGia);
                     break;
             }
+
             //pagination
+            float pageLimit = (float)list.Count() / 12;
             list = list.Skip((page - 1) * 12).Take(12);
 
             ViewBag.category = category;
             ViewBag.q = q;
             ViewBag.sortby = sortby;
             ViewBag.page = page;
-
-            float pageLimit = list.Count() / 12;
-            ViewBag.pageLimit = pageLimit % 1 == 0 ? Convert.ToInt32(pageLimit) : Convert.ToInt32(pageLimit + 1);
+            ViewBag.pageLimit = pageLimit % 1 == 0 ? Convert.ToInt32((int)pageLimit) : Convert.ToInt32((int)pageLimit + 1);
 
             ViewBag.categoryName = category == null ? "Tất cả sản phẩm" : db.DanhMuc.Find(category).tenDanhMuc;
             return View(list.ToList());
