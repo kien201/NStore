@@ -1,0 +1,73 @@
+﻿@model NStore.Models.EF.ChiTietPhieuNhap
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div>
+    <h4>Phiếu nhập</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PhieuNhap.ngayNhap)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhieuNhap.ngayNhap)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhieuNhap.NhaCungCap.tenNhaCungCap)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhieuNhap.NhaCungCap.tenNhaCungCap)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhieuNhap.NhaCungCap.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhieuNhap.NhaCungCap.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhieuNhap.NhaCungCap.soDienThoai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhieuNhap.NhaCungCap.soDienThoai)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhieuNhap.NhaCungCap.diaChi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhieuNhap.NhaCungCap.diaChi)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SanPham.tenSanPham)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SanPham.tenSanPham)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhieuNhap.NhanVien.taiKhoan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhieuNhap.NhanVien.taiKhoan)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Trở về", "Index")
+</p>

@@ -1,0 +1,51 @@
+﻿@model NStore.Models.EF.NhaCungCap
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>NhaCungCap</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tenNhaCungCap)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tenNhaCungCap)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.soDienThoai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.soDienThoai)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.diaChi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.diaChi)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

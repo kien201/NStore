@@ -1,4 +1,5 @@
-﻿using NStore.Models.EF;
+﻿using NStore.Models;
+using NStore.Models.EF;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -19,7 +20,7 @@ namespace NStore.Controllers
             {
                 var customer = (Session["curCustomer"] as KhachHang);
                 return View(customer);
-            }
+        }
             return RedirectToAction("Index", "Home");
         }
 
@@ -29,7 +30,7 @@ namespace NStore.Controllers
             if (orderState != null)
             {
                 order = order.Where(x => x.trangThaiDonHang == orderState);
-            }
+        }
             return PartialView(order.ToList());
         }
 
@@ -56,6 +57,46 @@ namespace NStore.Controllers
             return View("Index", customer);
         }
 
+        public ActionResult Wishlist()
+        {
+            return View(db.SanPhamYeuThich.Where(x => x.idKhachHang == 1).ToList());
+        }
+
+        public ActionResult Loading_Wishlist()
+        {
+            var rm = db.SanPhamYeuThich.Select(x => new {
+                soLuongTon = x.SanPham.soLuongTon,
+                idSanPham = x.idSanPham,
+                donGia = x.SanPham.donGia,
+                idKhachHang = x.idKhachHang,
+                tenSanPham = x.SanPham.tenSanPham,
+                img = x.SanPham.img
+            })
+                    .Where(x => x.idKhachHang == 1);
+
+            return Json(rm, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult Adding_Wishlist(int? id_sanpham)
+        {
+            if (db.SanPhamYeuThich.Any(x => x.idSanPham == id_sanpham))
+                return Json("Đã có sản phẩm trong yêu thích", JsonRequestBehavior.AllowGet);
+            else
+            {
+                db.SanPhamYeuThich.Add(new SanPhamYeuThich() { idKhachHang = 1, idSanPham = id_sanpham });
+                db.SaveChanges();
+                return Json("Thêm thành công", JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult Removing_Wishlist(int? id_sanpham)
+        {
+            var rm = db.SanPhamYeuThich.Where(x => x.idSanPham == id_sanpham).FirstOrDefault();
+            db.SanPhamYeuThich.Remove(rm);
+            db.SaveChanges();
+            return Json("Xóa khỏi danh sách ưa thích thành công", JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Cart()
         {
             if (Session["curCustomer"] != null)
@@ -77,7 +118,7 @@ namespace NStore.Controllers
                 {
                     ViewBag.curCustomer = customer;
                     return View(list.ToList());
-                }
+        }
                 else
                 {
                     return RedirectToAction("Cart");
@@ -106,7 +147,7 @@ namespace NStore.Controllers
             };
 
             if (checkboxDiffAddress == "on")
-            {
+        {
                 if (diffAddress == null) ModelState.AddModelError("", "Địa chỉ không được để trống");
                 newOrder.diaChiGiaoHang = diffAddress;
                 db.DonHang.Add(newOrder);
@@ -187,7 +228,7 @@ namespace NStore.Controllers
         {
             var user = Session["curCustomer"] as KhachHang;
             if (user != null)
-            {
+        {
                 db.GioHang.Remove(db.GioHang.Find(id));
                 db.SaveChanges();
             }
