@@ -41,6 +41,7 @@ namespace NStore.Areas.Admin.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
+            Session.Remove("curStaff");
             return RedirectToAction("Index");
         }
 

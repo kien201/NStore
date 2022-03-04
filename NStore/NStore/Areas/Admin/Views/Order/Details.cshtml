@@ -1,0 +1,126 @@
+﻿@model NStore.Models.EF.DonHang
+
+@{
+    ViewBag.Title = "Chi Tiết";
+}
+
+<div class="row">
+    <h4>Chi tiết đơn hàng - #@Model.id</h4>
+    <hr />
+    <div class="col-12 col-lg-8">
+        <dl class="dl-horizontal">
+            <dt>
+                Khách hàng
+            </dt>
+
+            <dd>
+                @Html.ActionLink(Model.KhachHang.hoTen, "Details", "Customer", new { Model.KhachHang.id }, null)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ngayDatHang)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ngayDatHang)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ngayGiaoHang)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ngayGiaoHang)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.diaChiGiaoHang)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.diaChiGiaoHang)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ghiChu)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ghiChu)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.hinhThucThanhToan)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.hinhThucThanhToan)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.thanhTien)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.thanhTien)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.trangThaiThanhToan)
+            </dt>
+
+            <dd>
+                @(Model.trangThaiThanhToan.Value ? "Đã thanh toán" : "Chưa thanh toán")
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.trangThaiDonHang)
+            </dt>
+
+            <dd>
+                @{ string orderState = ""; }
+                @switch (Model.trangThaiDonHang)
+                {
+                    case 1:
+                        orderState = "Chờ xác nhận";
+                        break;
+                    case 2:
+                        orderState = "Chờ lấy hàng";
+                        break;
+                    case 3:
+                        orderState = "Đang giao";
+                        break;
+                    case 4:
+                        orderState = "Đã giao";
+                        break;
+                    case 5:
+                        orderState = "Đơn huỷ";
+                        break;
+                    case 6:
+                        orderState = "Thành tiền";
+                        break;
+                }
+                @orderState
+            </dd>
+
+        </dl>
+    </div>
+    <div class="col-12 col-lg-4" style="border-left: 1px solid #ccc;">
+        <dt>
+            Sản phẩm đã đặt
+        </dt>
+
+        <dd>
+            <ul>
+                @foreach (var item in Model.ChiTietDonHang)
+                {
+                    <li>@Html.ActionLink(@item.SanPham.tenSanPham, "Details", "SanPham", new { item.SanPham.id }, null) x @item.soLuong : @Convert.ToInt32((item.donGia - item.donGia*item.giamGia/100) * item.soLuong).ToString("c")</li>
+                }
+            </ul>
+        </dd>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Trở về", "Index")
+</p>

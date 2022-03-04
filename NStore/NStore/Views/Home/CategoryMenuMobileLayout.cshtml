@@ -7,7 +7,7 @@
         <ul>
             @foreach (var catItem in item.DanhMuc)
             {
-                <li><a class="text-capitalize" href="elements-products.html">@catItem.tenDanhMuc</a></li>
+                <li><a class="text-capitalize" href="@Url.Action("Index", "Product", new { category = catItem.id })">@catItem.tenDanhMuc</a></li>
             }
         </ul>
     </li>

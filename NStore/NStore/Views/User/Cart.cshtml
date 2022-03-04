@@ -1,0 +1,77 @@
+﻿@model IEnumerable<NStore.Models.EF.GioHang>
+
+@{
+    ViewBag.Title = "Giỏ Hàng";
+}
+
+<div class="page-header text-center" style="background-image: url(@Url.Content("~/assets/images/page-header-bg.jpg"))">
+    <div class="container">
+        <h1 class="page-title">Giỏ hàng</h1>
+    </div><!-- End .container -->
+</div><!-- End .page-header -->
+
+<div class="page-content">
+    <div class="cart">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    <table class="table table-cart table-mobile">
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th>@Html.DisplayNameFor(m => m.SanPham.donGia)</th>
+                                <th>Số lượng</th>
+                                <th>Tổng</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <!--render by ajax-->
+                        </tbody>
+                    </table><!-- End .table table-wishlist -->
+                    @if (Model.Count() == 0)
+                    {
+                        <p class="mb-2">Chưa có sản phẩm nào trong giỏ hàng.</p>
+                        <a href="@Url.Action("Index", "Product")" class="btn btn-outline-primary-2">
+                            <span>Đến trang sản phẩm</span><i class="icon-long-arrow-right"></i>
+                        </a>
+                    }
+                    <div class="cart-bottom">
+                        <button onclick="LoadCartTable()" class="btn btn-outline-dark-2"><span>Cập Nhật Giỏ Hàng</span><i class="icon-refresh"></i></button>
+                    </div><!-- End .cart-bottom -->
+                </div><!-- End .col-lg-9 -->
+                <aside class="col-lg-3">
+                    <div class="summary summary-cart">
+                        <h3 class="summary-title">Tổng thanh toán</h3><!-- End .summary-title -->
+
+                        <table class="table table-summary">
+                            <tbody>
+                                <tr class="summary-total">
+                                    <td>Tổng:</td>
+                                    <td id="cart-summary-total"></td>
+                                </tr><!-- End .summary-total -->
+                            </tbody>
+                        </table><!-- End .table table-summary -->
+
+                        <a href="@Url.Action("Checkout")" class="btn btn-outline-primary-2 btn-order btn-block">
+                            Đặt Mua
+                            <i class="icon-long-arrow-right"></i>
+                        </a>
+                    </div><!-- End .summary -->
+
+                    <a href="@Url.Action("Index", "Product")" class="btn btn-outline-dark-2 btn-block mb-3"><span>Tiếp Tục Mua Hàng</span><i class="icon-refresh"></i></a>
+                </aside><!-- End .col-lg-3 -->
+            </div><!-- End .row -->
+        </div><!-- End .container -->
+    </div><!-- End .cart -->
+</div><!-- End .page-content -->
+
+@section scripts{
+    <script>
+        LoadCartTable();
+        function RemoveFromCartClick(id) {
+            RemoveFromCart(id);
+        }
+    </script>
+}

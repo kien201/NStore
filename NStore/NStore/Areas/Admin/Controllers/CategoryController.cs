@@ -53,8 +53,17 @@ namespace NStore.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,idNhomDanhMuc,tenDanhMuc")] DanhMuc danhMuc)
+        public ActionResult Create([Bind(Include = "id,idNhomDanhMuc,tenDanhMuc,img")] DanhMuc danhMuc)
         {
+            var f = Request.Files["img"];
+            if (f != null && f.ContentLength > 0)
+            {
+                var path = Server.MapPath("~/assets/images/category/" + f.FileName);
+                f.SaveAs(path);
+                danhMuc.img = f.FileName;
+            }
+            else danhMuc.img = "default-image.jpg";
+
             if (ModelState.IsValid)
             {
                 db.DanhMuc.Add(danhMuc);
@@ -87,8 +96,17 @@ namespace NStore.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,idNhomDanhMuc,tenDanhMuc")] DanhMuc danhMuc)
+        public ActionResult Edit([Bind(Include = "id,idNhomDanhMuc,tenDanhMuc")] DanhMuc danhMuc, string oldImageName)
         {
+            var f = Request.Files["img"];
+            if (f != null && f.ContentLength > 0)
+            {
+                var path = Server.MapPath("~/assets/images/category/" + f.FileName);
+                f.SaveAs(path);
+                danhMuc.img = f.FileName;
+            }
+            else danhMuc.img = oldImageName;
+
             if (ModelState.IsValid)
             {
                 db.Entry(danhMuc).State = EntityState.Modified;

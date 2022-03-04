@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'F:\Download\Web Nâng cao\Code\NStore\NStore\NStore\NStore\Models\EF\ModelNStore.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\University\DoAn_BaoCao\WebsiteBanHang\PhanMem\NStore\NStore\Models\EF\ModelNStore.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

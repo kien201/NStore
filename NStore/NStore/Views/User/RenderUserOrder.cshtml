@@ -1,0 +1,81 @@
+﻿@model IEnumerable<NStore.Models.EF.DonHang>
+
+<table class="table text-center mb-0">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.ngayDatHang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.thanhTien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.trangThaiThanhToan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.trangThaiDonHang)
+            </th>
+            <th>Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    #@Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ngayDatHang)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.thanhTien)
+                </td>
+                <td font-size: 20px">
+                    @if (item.trangThaiThanhToan.Value)
+                    {
+                        <i class="fas fa-check" style="color: #00cc00 "></i>
+                    }
+                    else
+                    {
+                        <i class="fas fa-times" style="color: #E34724"></i>
+                    }
+                </td>
+                <td width="10%">
+                    @{ string orderState = ""; }
+                    @switch (item.trangThaiDonHang)
+                    {
+                        case 1:
+                            orderState = "Chờ xác nhận";
+                            break;
+                        case 2:
+                            orderState = "Chờ lấy hàng";
+                            break;
+                        case 3:
+                            orderState = "Đang giao";
+                            break;
+                        case 4:
+                            orderState = "Đã giao";
+                            break;
+                        case 5:
+                            orderState = "Đơn huỷ";
+                            break;
+                        case 6:
+                            orderState = "Trả hàng";
+                            break;
+                    }
+                    @orderState
+                </td>
+                <td>
+                    <div>
+                        <a href="@Url.Action("Details", new { id = item.id })" class="view" title="Xem" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                        <a href="@Url.Action("Edit", new { id = item.id })" class="edit" title="Sửa" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

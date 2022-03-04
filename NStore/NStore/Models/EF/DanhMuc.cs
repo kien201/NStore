@@ -22,6 +22,7 @@ namespace NStore.Models.EF
         public int id { get; set; }
         public Nullable<int> idNhomDanhMuc { get; set; }
         public string tenDanhMuc { get; set; }
+        public string img { get; set; }
     
         public virtual NhomDanhMuc NhomDanhMuc { get; set; }
         public virtual ICollection<SanPham> SanPham { get; set; }

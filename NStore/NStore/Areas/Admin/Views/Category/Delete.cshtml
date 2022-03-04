@@ -24,6 +24,14 @@
             @Html.DisplayFor(model => model.NhomDanhMuc.tenNhomDanhMuc)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.img)
+        </dt>
+
+        <dd>
+            <img src="~/assets/images/category/@Model.img" alt="??" width="35%" />
+        </dd>
+
     </dl>
 
     @using (Html.BeginForm())

@@ -10,14 +10,25 @@ using NStore.Models.EF;
 
 namespace NStore.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "admin,mod")]
     public class SanPhamController : Controller
     {
         private NStoreEntities db = new NStoreEntities();
 
         // GET: Admin/SanPham
-        public ActionResult Index()
+        public ActionResult Index(string q)
         {
             var sanPham = db.SanPham.Include(s => s.DanhMuc);
+            if (q != null)
+            {
+                sanPham = sanPham.Where(x => x.tenSanPham.Contains(q) ||
+                                             x.DanhMuc.tenDanhMuc.Contains(q) ||
+                                             x.mota.Contains(q) ||
+                                             x.xuatXu.Contains(q) ||
+                                             x.donGia.ToString().Contains(q) ||
+                                             x.giamGia.ToString().Contains(q)
+                                       );
+            }
             return View(sanPham.ToList());
         }
 
@@ -50,6 +61,15 @@ namespace NStore.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,tenSanPham,idDanhMuc,img,mota,kichThuoc,mauSac,chatLieu,xuatXu,donGia,giamGia,soLuongTon")] SanPham sanPham)
         {
+            var f = Request.Files["img"];
+            if (f != null && f.ContentLength > 0)
+            {
+                var path = Server.MapPath("~/assets/images/products/" + f.FileName);
+                f.SaveAs(path);
+                sanPham.img = f.FileName;
+            }
+            else sanPham.img = "default-image.jpg";
+
             if (ModelState.IsValid)
             {
                 db.SanPham.Add(sanPham);
@@ -76,25 +96,33 @@ namespace NStore.Areas.Admin.Controllers
             ViewBag.idDanhMuc = new SelectList(db.DanhMuc, "id", "tenDanhMuc", sanPham.idDanhMuc);
             return View(sanPham);
         }
-        public ActionResult EditImg(int id)
+        public ActionResult LoadImgList(int productId)
         {
-            int id_img = Convert.ToInt32(id);
-            var result = db.SanPhamImage.Select(x=>new {x.id, x.img ,x.idSanPham}).Where(x=>x.idSanPham==id_img);
+            var result = db.SanPhamImage.Select(x=>new {x.id, x.img ,x.idSanPham}).Where(x=>x.idSanPham==productId);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult AddImg(string imgPath, int id)
+        public ActionResult AddImg()
         {
+            int productId = Convert.ToInt32(Request["productId"]);
 
-            int id_img = Convert.ToInt32(id);
-            SanPhamImage sp = new SanPhamImage() { idSanPham = id, img = imgPath };
-            db.SanPhamImage.Add(sp);
+            foreach (string fileName in Request.Files)
+            {
+                var f = Request.Files[fileName];
+                if (f != null && f.ContentLength > 0)
+                {
+                    var path = Server.MapPath("~/assets/images/products/" + f.FileName);
+                    f.SaveAs(path);
+                    SanPhamImage sp = new SanPhamImage() { idSanPham = productId, img = f.FileName };
+                    db.SanPhamImage.Add(sp);
+                }
+            }
+
             db.SaveChanges();
             return Json("Thêm thành công", JsonRequestBehavior.AllowGet);
         }
-        public ActionResult DeleteImg(int id)
+        public ActionResult DeleteImg(int imageId)
         {
-            int id_ = Convert.ToInt32(id);
-            var rm = db.SanPhamImage.Find(id_);
+            var rm = db.SanPhamImage.Find(imageId);
             db.SanPhamImage.Remove(rm);
             db.SaveChanges();
             return Json("Xóa thành công", JsonRequestBehavior.AllowGet);
@@ -104,8 +132,17 @@ namespace NStore.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,tenSanPham,idDanhMuc,img,mota,kichThuoc,mauSac,chatLieu,xuatXu,donGia,giamGia,soLuongTon")] SanPham sanPham)
+        public ActionResult Edit([Bind(Include = "id,tenSanPham,idDanhMuc,img,mota,kichThuoc,mauSac,chatLieu,xuatXu,donGia,giamGia,soLuongTon")] SanPham sanPham, string oldImageName)
         {
+            var f = Request.Files["img"];
+            if (f != null && f.ContentLength > 0)
+            {
+                var path = Server.MapPath("~/assets/images/category/" + f.FileName);
+                f.SaveAs(path);
+                sanPham.img = f.FileName;
+            }
+            else sanPham.img = oldImageName;
+
             if (ModelState.IsValid)
             {
                 db.Entry(sanPham).State = EntityState.Modified;

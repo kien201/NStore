@@ -1,15 +1,11 @@
 ﻿@model NStore.Models.EF.SanPham
 
 @{
-    ViewBag.Title = "Delete";
-    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Xóa";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3>Bạn có chắc muốn xóa sản phẩm?</h3>
 <div>
-    <h4>SanPham</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -21,11 +17,19 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.DanhMuc.tenDanhMuc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DanhMuc.tenDanhMuc)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.img)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.img)
+            <img src="~/assets/images/products/@Model.img" alt="??" width="35%" />
         </dd>
 
         <dt>
@@ -81,7 +85,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.giamGia)
+            @Html.DisplayFor(model => model.giamGia)%
         </dd>
 
         <dt>
@@ -92,22 +96,15 @@
             @Html.DisplayFor(model => model.soLuongTon)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DanhMuc.tenDanhMuc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DanhMuc.tenDanhMuc)
-        </dd>
-
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Xóa" class="btn btn-danger" /> |
+            @Html.ActionLink("Trở về", "Index")
         </div>
     }
 </div>

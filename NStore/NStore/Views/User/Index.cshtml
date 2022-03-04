@@ -1,0 +1,187 @@
+﻿@model NStore.Models.EF.KhachHang
+
+@{
+    ViewBag.Title = "Bản tin";
+}
+
+
+@section styles{
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <style>
+        table a {
+            color: none;
+        }
+    </style>
+}
+
+<div class="page-header text-center" style="background-image: url(@Url.Content("~/assets/images/page-header-bg.jpg"))">
+    <div class="container">
+        <h1 class="page-title">Tài khoản của tôi</h1>
+    </div><!-- End .container -->
+</div><!-- End .page-header -->
+
+<div class="page-content pt-4">
+    <div class="dashboard">
+        <div class="container">
+            <div class="row">
+                <aside class="col-md-4 col-lg-3">
+                    <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="tab-dashboard-link" data-toggle="tab" href="#tab-dashboard" role="tab" aria-controls="tab-dashboard" aria-selected="true">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">Orders</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-account" role="tab" aria-controls="tab-account" aria-selected="false">Account Details</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Logout", "Login")">Đăng xuất</a>
+                        </li>
+                    </ul>
+                </aside><!-- End .col-lg-3 -->
+
+                <div class="col-md-8 col-lg-9">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel" aria-labelledby="tab-dashboard-link">
+                            <p>
+                                Xin chào <span class="font-weight-normal text-dark">@Model.hoTen</span> (không phải <span class="font-weight-normal text-dark">@Model.hoTen</span>? <a href="@Url.Action("Logout", "Login")">Đăng xuất</a>)
+                                <br>
+                                Từ trang bản tin, bạn có thể xem các <a href="#tab-orders" class="tab-trigger-link link-underline">đơn đặt hàng gần đây</a>, quản lý <a href="#tab-account" class="tab-trigger-link">thông tin tài khoản và mật khẩu của mình</a>.
+                            </p>
+                        </div><!-- .End .tab-pane -->
+
+                        <div class="tab-pane fade" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
+                            @if (Model.DonHang.Count() == 0)
+                            {
+                                <p class="mb-2">Bạn chưa đặt sản phẩm nào.</p>
+                                <a href="@Url.Action("Index", "Product")" class="btn btn-outline-primary-2">
+                                    <span>Đến trang sản phẩm</span><i class="icon-long-arrow-right"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#tab-all" role="tab" aria-controls="tab-all" aria-selected="true">Tất cả</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="false">Chờ xác nhận</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">Chờ lấy hàng</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="false">Đang giao</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tab-4" role="tab" aria-controls="tab-4" aria-selected="false">Đã giao</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tab-5" role="tab" aria-controls="tab-5" aria-selected="false">Đơn huỷ</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tab-6" role="tab" aria-controls="tab-6" aria-selected="false">Trả hàng/Hoàn tiền</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content tab-content-border">
+                                    <div class="tab-pane fade show active" id="tab-all" role="tabpanel" aria-labelledby="tab-5-tab">
+                                        @Html.Action("RenderUserOrder", new { idCustomer = Model.id })
+                                    </div><!-- .End .tab-pane -->
+                                    <div class="tab-pane fade" id="tab-1" role="tabpanel" aria-labelledby="tab-6-tab">
+                                        @Html.Action("RenderUserOrder", new { idCustomer = Model.id, orderState = 1 })
+                                    </div><!-- .End .tab-pane -->
+                                    <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="tab-6-tab">
+                                        @Html.Action("RenderUserOrder", new { idCustomer = Model.id, orderState = 2 })
+                                    </div><!-- .End .tab-pane -->
+                                    <div class="tab-pane fade" id="tab-3" role="tabpanel" aria-labelledby="tab-6-tab">
+                                        @Html.Action("RenderUserOrder", new { idCustomer = Model.id, orderState = 3 })
+                                    </div><!-- .End .tab-pane -->
+                                    <div class="tab-pane fade" id="tab-4" role="tabpanel" aria-labelledby="tab-6-tab">
+                                        @Html.Action("RenderUserOrder", new { idCustomer = Model.id, orderState = 4 })
+                                    </div><!-- .End .tab-pane -->
+                                    <div class="tab-pane fade" id="tab-5" role="tabpanel" aria-labelledby="tab-6-tab">
+                                        @Html.Action("RenderUserOrder", new { idCustomer = Model.id, orderState = 5 })
+                                    </div><!-- .End .tab-pane -->
+                                    <div class="tab-pane fade" id="tab-6" role="tabpanel" aria-labelledby="tab-6-tab">
+                                        @Html.Action("RenderUserOrder", new { idCustomer = Model.id, orderState = 6 })
+                                    </div><!-- .End .tab-pane -->
+                                </div><!-- End .tab-content -->
+                            }
+                        </div><!-- .End .tab-pane -->
+
+                        <div class="tab-pane fade" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link">
+                            @using (Html.BeginForm("UpdateCustomer", "User"))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.id)
+                                @Html.HiddenFor(model => model.taiKhoan)
+                                @Html.HiddenFor(model => model.matKhau)
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        @Html.LabelFor(model => model.hoTen) *
+                                        @Html.EditorFor(model => model.hoTen, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.hoTen, "", new { @class = "text-danger" })
+                                    </div><!-- End .col-sm-6 -->
+
+                                    <div class="col-sm-6">
+                                        @Html.LabelFor(model => model.soDienThoai) *
+                                        @Html.EditorFor(model => model.soDienThoai, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.soDienThoai, "", new { @class = "text-danger" })
+                                    </div><!-- End .col-sm-6 -->
+                                </div><!-- End .row -->
+                                <div>
+                                    @Html.LabelFor(model => model.email) *
+                                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                                </div>
+                                <div>
+                                    @Html.LabelFor(model => model.ngaySinh) *
+                                    @if (Model.ngaySinh != null)
+                                    {
+                                        @Html.TextBox("ngaySinh", Model.ngaySinh.Value.ToString("yyyy-MM-dd"), new { @class = "form-control", @type = "date" });
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBox("ngaySinh", null, new { @class = "form-control", @type = "date" });
+                                    }
+                                    @Html.ValidationMessageFor(model => model.ngaySinh, "", new { @class = "text-danger" })
+                                </div>
+                                <div>
+                                    @Html.LabelFor(model => model.gioiTinh) *
+                                    @Html.EditorFor(model => model.gioiTinh, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.gioiTinh, "", new { @class = "text-danger" })
+                                </div>
+                                <div>
+                                    @Html.LabelFor(model => model.diaChi) *
+                                    @Html.EditorFor(model => model.diaChi, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.diaChi, "", new { @class = "text-danger" })
+                                </div>
+
+                                <label>Mật khẩu hiện tại (để trống nếu không muốn thay đổi)</label>
+                                <input type="password" name="oldPass" class="form-control">
+
+                                <label>Mật khẩu mới (để trống nếu không muốn thay đổi)</label>
+                                <input type="password" name="newPass" class="form-control">
+
+                                <label>Nhập lại mật khẩu (để trống nếu không muốn thay đổi)</label>
+                                <input type="password" name="retypePass" class="form-control mb-2">
+
+                                <button type="submit" class="btn btn-outline-primary-2">
+                                    <span>Lưu thay đổi</span>
+                                    <i class="icon-long-arrow-right"></i>
+                                </button>
+                            }
+                        </div><!-- .End .tab-pane -->
+                    </div>
+                </div><!-- End .col-lg-9 -->
+            </div><!-- End .row -->
+        </div><!-- End .container -->
+    </div><!-- End .dashboard -->
+</div><!-- End .page-content -->
+
+@section scripts{
+    <script src="~/assets/js/fontawesome-5-15-3-all.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

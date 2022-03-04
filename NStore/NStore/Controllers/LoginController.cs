@@ -38,6 +38,7 @@ namespace NStore.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
+            Session.Remove("curCustomer");
             return RedirectToAction("Index");
         }
 

@@ -11,5 +11,8 @@ namespace NStore.Models.EF
         [Display(Name = "Tên danh mục")]
         [Required(ErrorMessage = "Tên danh mục không được để trống!")]
         public string tenDanhMuc { get; set; }
+
+        [Display(Name = "Ảnh")]
+        public string img { get; set; }
     }
 }

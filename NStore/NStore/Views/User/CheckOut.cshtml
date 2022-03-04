@@ -1,0 +1,163 @@
+﻿@model IEnumerable<NStore.Models.EF.GioHang>
+
+@{
+    ViewBag.Title = "Thanh Toán";
+}
+
+<div class="page-header text-center" style="background-image: url(@Url.Content("~/assets/images/page-header-bg.jpg"))">
+    <div class="container">
+        <h1 class="page-title">Đặt hàng</h1>
+    </div><!-- End .container -->
+</div><!-- End .page-header -->
+
+<div class="page-content pb-0">
+    <div class="checkout">
+        <div class="container">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-lg-9">
+                        <h2 class="checkout-title">Thông tin thanh toán</h2><!-- End .checkout-title -->
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <input type="hidden" name="idCustomer" value="@ViewBag.curCustomer.id" />
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Tên khách hàng *</label>
+                                <input type="text" class="form-control" value="@ViewBag.curCustomer.hoTen" readonly>
+                            </div><!-- End .col-sm-6 -->
+
+                            <div class="col-sm-6">
+                                <label>Số điện thoại *</label>
+                                <input type="text" class="form-control" value="@ViewBag.curCustomer.soDienThoai" readonly>
+                            </div><!-- End .col-sm-6 -->
+                        </div><!-- End .row -->
+
+                        <label>Email *</label>
+                        <input type="email" class="form-control" value="@ViewBag.curCustomer.email" readonly>
+
+                        <label>Địa chỉ *</label>
+                        <input type="text" class="form-control" value="@ViewBag.curCustomer.diaChi" readonly>
+
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="checkout-diff-address" name="checkboxDiffAddress">
+                            <label class="custom-control-label" style="user-select: none" for="checkout-diff-address">Giao hàng đến địa chỉ khác?</label>
+                        </div><!-- End .custom-checkbox -->
+
+                        <input id="checkout-diff-address-input" name="diffAddress" type="text" class="form-control" placeholder="Nhập địa chỉ giao hàng..." readonly>
+
+                        <label>Ghi chú giao hàng</label>
+                        <textarea class="form-control" cols="30" rows="4" name="deliveryNotes" placeholder="Ghi chú về đơn giao hàng, lưu ý cho người bán..."></textarea>
+                    </div><!-- End .col-lg-9 -->
+                    <aside class="col-lg-3">
+                        <div class="summary">
+                            <h3 class="summary-title">Đơn hàng của bạn</h3><!-- End .summary-title -->
+
+                            <table class="table table-summary">
+                                <thead>
+                                    <tr>
+                                        <th>Sản phẩm</th>
+                                        <th>Giá</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td><a href="#">@item.SanPham.tenSanPham x @item.soLuong</a></td>
+                                            <td>@Convert.ToInt32((item.SanPham.donGia - item.SanPham.donGia * item.SanPham.giamGia / 100) * item.soLuong).ToString("c")</td>
+                                        </tr>
+                                    }
+                                    <tr class="summary-total">
+                                        <td>Tổng:</td>
+                                        <td>@Convert.ToInt32(Model.Sum(x => (x.SanPham.donGia - x.SanPham.donGia * x.SanPham.giamGia / 100) * x.soLuong)).ToString("c")</td>
+                                    </tr><!-- End .summary-total -->
+                                </tbody>
+                            </table><!-- End .table table-summary -->
+
+                            <h3 class="summary-title">Phương thức thanh toán</h3><!-- End .summary-title -->
+
+                            <div class="accordion-summary mb-0" id="accordion-payment">
+                                <input type="hidden" id="accordion-payment" name="accordionPayment" value="1" />
+                                <div class="card">
+                                    <div class="card-header" id="heading-1">
+                                        <h2 class="card-title">
+                                            <a role="button" onclick="SwitchAccordionPayment(1)" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
+                                                Trả tiền mặt khi nhận hàng
+                                            </a>
+                                        </h2>
+                                    </div><!-- End .card-header -->
+                                    <div id="collapse-1" class="collapse show" aria-labelledby="heading-1" data-parent="#accordion-payment">
+                                        <div class="card-body">
+                                            Với phương thức thanh toán này, quý khách trả tiền mặt cho nhân viên giao hàng ngay khi nhận được đơn hàng của mình. Chúng tôi chấp nhận hình thức thanh toán khi nhận hàng (COD) cho hầu hết đơn hàng trên toàn quốc.
+                                        </div><!-- End .card-body -->
+                                    </div><!-- End .collapse -->
+                                </div><!-- End .card -->
+
+                                <div class="card">
+                                    <div class="card-header" id="heading-2">
+                                        <h2 class="card-title">
+                                            <a class="collapsed" role="button" onclick="SwitchAccordionPayment(2)" data-toggle="collapse" href="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
+                                                Chuyển khoản ngân hàng
+                                            </a>
+                                        </h2>
+                                    </div><!-- End .card-header -->
+                                    <div id="collapse-2" class="collapse" aria-labelledby="heading-2" data-parent="#accordion-payment">
+                                        <div class="card-body">
+                                            <p>
+                                                Điều kiện để chọn hình thức thanh toán chuyển khoản là thẻ ATM của Quý khách đã được đăng ký sử dụng internet banking.
+
+                                            </p>
+                                            <p>
+                                                * Quý khách chuyển khoản vào tài khoản:
+                                            </p>
+                                            <ul class="m-0">
+                                                <li>- TÊN TÀI KHOẢN: CÔNG TY TNHH NSTORE VIỆT NAM.</li>
+                                                <li>- SỐ TÀI KHOẢN: <b>31020564100097</b></li>
+                                                <li>- NGÂN HÀNG TMCP ĐẦU TƯ VÀ PHÁT TRIỂN VIỆT NAM (BIDV) - CHI NHÁNH: Cầu Giấy.</li>
+                                            </ul>
+                                            <p>
+                                                Cú pháp ghi chú: <b>SA_[Mã đơn hàng]</b>
+                                            </p>
+                                            <p>
+                                                * Ví dụ: Quý khách thanh toán chuyển khoản cho đơn hàng #19xxx đặt hàng trên website, cú pháp ghi chú khi chuyển khoản sẽ là SA_#19xxx.
+                                            </p>
+                                        </div><!-- End .card-body -->
+                                    </div><!-- End .collapse -->
+                                </div><!-- End .card -->
+
+                                <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+                                    Đặt Mua
+                                    <i class="icon-long-arrow-right"></i>
+                                </button>
+                            </div><!-- End .summary -->
+                    </aside><!-- End .col-lg-3 -->
+                </div><!-- End .row -->
+            }
+        </div><!-- End .container -->
+    </div><!-- End .checkout -->
+</div><!-- End .page-content -->
+
+@section scripts{
+    <script>
+        $("#checkout-diff-address").change(() => {
+            let input = $("#checkout-diff-address-input");
+            if (input.attr("readonly") == "readonly") input.removeAttr("readonly");
+            else {
+                input.val("")
+                input.attr("readonly", true);
+            }
+        })
+
+        function SwitchAccordionPayment(type) {
+            let inputAccordionPayment = $("input#accordion-payment");
+            if (type == 2) {
+                inputAccordionPayment.val(2)
+            }
+            else {
+                inputAccordionPayment.val(1)
+            }
+        }
+    </script>
+}
