@@ -18,15 +18,9 @@ namespace NStore.Controllers
             if (category != null)
             {
                 list = list.Where(x => x.idDanhMuc == category);
-        }
+            }
             if (q != null)
-        public ActionResult ProductDetail(int? id)
-        {
-            CustomProduct ct = new CustomProduct();
-            var sp = db.SanPham.Find(2);
-            ct.sanpham = sp;
-            ct.list_sanpham = db.SanPham.Where(x => x.idDanhMuc == sp.idDanhMuc).ToList();
-            return View(ct);
+            {
                 list = list.Where(x => x.tenSanPham.Contains(q) ||
                                        x.DanhMuc.tenDanhMuc.Contains(q) ||
                                        x.mota.Contains(q) ||
@@ -78,5 +72,13 @@ namespace NStore.Controllers
             return View(list.ToList());
         }
 
+        public ActionResult ProductDetail(int? id)
+        {
+            CustomProduct ct = new CustomProduct();
+            var sp = db.SanPham.Find(2);
+            ct.sanpham = sp;
+            ct.list_sanpham = db.SanPham.Where(x => x.idDanhMuc == sp.idDanhMuc).ToList();
+            return View(ct);
+        }
     }
 }
