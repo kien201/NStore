@@ -14,7 +14,6 @@ namespace NStore.Models.EF
 
         [Display(Name = "Email")]
         [DataType(DataType.EmailAddress)]
-        [Required(ErrorMessage = "Email không được để trống!")]
         [EmailAddress(ErrorMessage = "Không đúng định dạng email!")]
         public string email { get; set; }
 

@@ -76,6 +76,7 @@ namespace NStore.Controllers
                 soLuongTon = x.SanPham.soLuongTon,
                 idSanPham = x.idSanPham,
                 donGia = x.SanPham.donGia,
+                x.SanPham.giamGia,
                 idKhachHang = x.idKhachHang,
                 tenSanPham = x.SanPham.tenSanPham,
                 img = x.SanPham.img
@@ -123,8 +124,8 @@ namespace NStore.Controllers
             if (Session["curCustomer"] != null)
             {
                 var customer = (Session["curCustomer"] as KhachHang);
-                var list = customer.GioHang;
-                if (list.Count > 0)
+                var list = customer.GioHang.Where(x => x.soLuong < x.SanPham.soLuongTon);
+                if (list.Count() > 0)
                 {
                     ViewBag.curCustomer = customer;
                     return View(list.ToList());
@@ -142,7 +143,7 @@ namespace NStore.Controllers
         public ActionResult CheckOut(int idCustomer, string checkboxDiffAddress, string diffAddress, string deliveryNotes, int accordionPayment)
         {
             var customer = db.KhachHang.Find(idCustomer);
-            var cartList = customer.GioHang;
+            var cartList = customer.GioHang.Where(x => x.soLuong < x.SanPham.soLuongTon);
             ViewBag.curCustomer = customer;
 
             var newOrder = new DonHang()
@@ -185,7 +186,7 @@ namespace NStore.Controllers
                         giamGia = item.SanPham.giamGia
                     });
                 }
-                db.GioHang.RemoveRange(cartList);
+                db.GioHang.RemoveRange(customer.GioHang);
                 db.SaveChanges();
                 return View("CheckOutSuccess", order);
             }
@@ -204,7 +205,8 @@ namespace NStore.Controllers
                     x.SanPham.img,
                     x.SanPham.donGia,
                     x.SanPham.giamGia,
-                    x.soLuong
+                    x.soLuong,
+                    soLuongSanPhamTon = x.SanPham.soLuongTon
                 });
             return Json(cart.ToList(), JsonRequestBehavior.AllowGet);
         }
@@ -212,21 +214,27 @@ namespace NStore.Controllers
         public JsonResult GetTotal_CartPrice()
         {
             int customerId = (Session["curCustomer"] as KhachHang).id;
-            var totalPrice = db.GioHang.Where(x => x.idKhachHang == customerId).Sum(x => (x.SanPham.donGia - x.SanPham.donGia * x.SanPham.giamGia / 100) * x.soLuong);
+            var totalPrice = db.GioHang.Where(x => x.idKhachHang == customerId && x.soLuong < x.SanPham.soLuongTon).Sum(x => (x.SanPham.donGia - x.SanPham.donGia * x.SanPham.giamGia / 100) * x.soLuong);
+            if (totalPrice == null) totalPrice = 0;
             return Json(totalPrice, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult AddToCart(int productId, int soLuong, string type = "replace")
         {
+            var product = db.SanPham.Find(productId);
             int customerId = (Session["curCustomer"] as KhachHang).id;
             var cart = db.GioHang.FirstOrDefault(x => x.idSanPham == productId && x.idKhachHang == customerId);
             if (cart != null)
             {
-                if (type == "add") db.GioHang.Find(cart.id).soLuong += soLuong;
-                else db.GioHang.Find(cart.id).soLuong = soLuong;
+                if (type == "add") cart.soLuong += soLuong;
+                else cart.soLuong = soLuong;
+                if (cart.soLuong > product.soLuongTon)
+                    return Json(product.tenSanPham + " hiện còn " + product.soLuongTon + " sản phẩm", JsonRequestBehavior.AllowGet);
             }
             else
             {
+                if (soLuong > product.soLuongTon)
+                    return Json(product.tenSanPham + " hiện còn " + product.soLuongTon + " sản phẩm", JsonRequestBehavior.AllowGet);
                 var newCart = new GioHang() { idKhachHang = customerId, idSanPham = productId, soLuong = soLuong };
                 db.GioHang.Add(newCart);
             }

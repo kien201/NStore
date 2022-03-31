@@ -25,8 +25,7 @@ namespace NStore.Areas.Admin.Controllers
                                              x.DanhMuc.tenDanhMuc.Contains(q) ||
                                              x.mota.Contains(q) ||
                                              x.xuatXu.Contains(q) ||
-                                             x.donGia.ToString().Contains(q) ||
-                                             x.giamGia.ToString().Contains(q)
+                                             x.soLuongTon.Value.ToString().Contains(q)
                                        );
             }
             return View(sanPham.ToList());

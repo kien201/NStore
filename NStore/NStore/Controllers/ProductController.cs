@@ -28,9 +28,7 @@ namespace NStore.Controllers
                                        x.kichThuoc.Contains(q) ||
                                        x.mauSac.Contains(q) ||
                                        x.chatLieu.Contains(q) ||
-                                       x.xuatXu.Contains(q) ||
-                                       x.donGia.ToString().Contains(q) ||
-                                       x.giamGia.ToString().Contains(q)
+                                       x.xuatXu.Contains(q)
                                        );
             }
             switch (sortby)
@@ -60,14 +58,15 @@ namespace NStore.Controllers
             }
 
             //pagination
-            float pageLimit = (float)list.Count() / 12;
-            list = list.Skip((page - 1) * 12).Take(12);
+            int productPerPage = 12;
+            ViewBag.page = page;
+            if (page - 1 > 0) ViewBag.prevPage = page - 1;
+            if (page * productPerPage < list.Count()) ViewBag.nextPage = page + 1;
+            list = list.Skip((page - 1) * productPerPage).Take(productPerPage);
 
             ViewBag.category = category;
             ViewBag.q = q;
             ViewBag.sortby = sortby;
-            ViewBag.page = page;
-            ViewBag.pageLimit = pageLimit % 1 == 0 ? Convert.ToInt32((int)pageLimit) : Convert.ToInt32((int)pageLimit + 1);
 
             ViewBag.categoryName = category == null ? "Tất cả sản phẩm" : db.DanhMuc.Find(category).tenDanhMuc;
             return View(list.ToList());
@@ -82,7 +81,18 @@ namespace NStore.Controllers
             CustomProduct ct = new CustomProduct();
             var sp = db.SanPham.Find(id);
             ct.sanpham = sp;
-            ct.list_sanpham = db.SanPham.Where(x => x.idDanhMuc == sp.idDanhMuc).ToList();
+            //sắp xếp theo sản phẩm được đặt cùng nhiều nhất trong tháng, lấy 6 sản phẩm
+            var beginDate = DateTime.Now.AddMonths(-1);
+            ct.list_sanpham = db.SanPham.Where(x => x.id != id)
+                                .Select(x => new
+                                {
+                                    x,
+                                                      //lấy những đơn hàng trong tháng có xuất hiện sản phẩm hiện tại (đang view trong product detail)
+                                    count = db.DonHang.Where(y => y.ngayDatHang.Value >= beginDate && y.ChiTietDonHang.Where(z => z.idSanPham == id).Count() > 0)
+                                                      //tính tổng từng sản phẩm được mua cùng trong các đơn hàng
+                                                      .Sum(y => y.ChiTietDonHang.Where(z => z.idSanPham == x.id).Sum(z => z.soLuong))
+                                }).OrderByDescending(x => x.count).ThenByDescending(x => x.x.id).Select(x => x.x)
+                                .Take(6).ToList();
             return View(ct);
         }
     }

@@ -54,10 +54,21 @@
                             </tbody>
                         </table><!-- End .table table-summary -->
 
-                        <a href="@Url.Action("Checkout")" class="btn btn-outline-primary-2 btn-order btn-block">
-                            Đặt Mua
-                            <i class="icon-long-arrow-right"></i>
-                        </a>
+                        @if (Model.Where(x => x.soLuong < x.SanPham.soLuongTon).Count() > 0)
+                        {
+                            <a href="@Url.Action("Checkout")" class="btn btn-outline-primary-2 btn-order btn-block">
+                                Đặt Mua
+                                <i class="icon-long-arrow-right"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="#" class="btn btn-outline-primary-2 btn-order btn-block disabled">
+                                Đặt Mua
+                                <i class="icon-long-arrow-right"></i>
+                            </a>
+                        }
+
                     </div><!-- End .summary -->
 
                     <a href="@Url.Action("Index", "Product")" class="btn btn-outline-dark-2 btn-block mb-3"><span>Tiếp Tục Mua Hàng</span><i class="icon-refresh"></i></a>

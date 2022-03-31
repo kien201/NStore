@@ -1,0 +1,54 @@
+﻿@model NStore.Models.EF.PhieuXuat
+
+@{
+    ViewBag.Title = "Xoá phiếu xuất";
+}
+
+<h3>Bạn có chắc muốn xoá phiếu xuất #@Model.id?</h3>
+<div class="row">
+    <hr />
+    <div class="col-12 col-lg-8">
+        <dl class="dl-horizontal">
+            <dt>
+                Nhân viên thực hiện
+            </dt>
+
+            <dd>
+                @Html.ActionLink(Model.NhanVien.hoTen, "Details", "Staff", new { Model.NhanVien.id }, null)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ngayXuat)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ngayXuat)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="col-12 col-lg-4" style="border-left: 1px solid #ccc;">
+        <dt>
+            Sản phẩm đã xuất
+        </dt>
+
+        <dd>
+            <ul>
+                @foreach (var item in Model.ChiTietPhieuXuat)
+                {
+                    <li>@Html.ActionLink(@item.SanPham.tenSanPham, "Details", "SanPham", new { item.SanPham.id }, null) x @item.soLuongXuat</li>
+                }
+            </ul>
+        </dd>
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Xoá" class="btn btn-primary" /> |
+        @Html.ActionLink("Trở về", "Index")
+    </div>
+}

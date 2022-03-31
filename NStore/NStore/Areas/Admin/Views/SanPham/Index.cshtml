@@ -52,9 +52,6 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.giamGia)
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.soLuongTon)
-                            </th>
                             <th>Chức năng</th>
                         </tr>
                     </thead>
@@ -71,10 +68,10 @@
                                 <td width="15%">
                                     <img src="~/assets/images/products/@item.img" alt="??" width="100%" />
                                 </td>
-                                <td width="20%">
-                                    @if (item.mota != null && item.mota.Length > 130)
+                                <td width="25%">
+                                    @if (item.mota != null && item.mota.Length > 230)
                                     {
-                                        @item.mota.Substring(0, 130)
+                                        @item.mota.Substring(0, 230)
                                         <span>...</span>
                                     }
                                     else
@@ -92,9 +89,6 @@
                                     @Html.DisplayFor(modelItem => item.giamGia)%
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.soLuongTon)
-                                </td>
-                                <td>
                                     <a href="@Url.Action("Details", new { id = item.id })" class="view" title="Xem" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
                                     <a href="@Url.Action("Edit", new { id = item.id })" class="edit" title="Sửa" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                                     <a href="@Url.Action("Delete", new { id = item.id })" class="delete" title="Xóa" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
@@ -107,3 +101,14 @@
         </div>
     </div>
 </div>
+
+
+@section scripts{
+    <script>
+        var menu = $("#sidenavMenu")[0].querySelectorAll(".nav-link");
+        menu.forEach((item) => {
+            item.classList.remove("active");
+        })
+        menu[2].classList.add("active");
+    </script>
+}

@@ -46,25 +46,36 @@
     </li>
 </ul>
 <div class="tab-content">
-    <div class="tab-pane fade show active" id="tab-all" role="tabpanel" aria-labelledby="tab-5-tab">
+    <div class="tab-pane fade show active" id="tab-all" role="tabpanel" aria-labelledby="tab-all-tab">
         @Html.Action("RenderTableOrder", new { q = ViewBag.q })
     </div><!-- .End .tab-pane -->
-    <div class="tab-pane fade" id="tab-1" role="tabpanel" aria-labelledby="tab-6-tab">
+    <div class="tab-pane fade" id="tab-1" role="tabpanel" aria-labelledby="tab-1-tab">
         @Html.Action("RenderTableOrder", new { q = ViewBag.q, orderState = 1 })
     </div><!-- .End .tab-pane -->
-    <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="tab-6-tab">
+    <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="tab-2-tab">
         @Html.Action("RenderTableOrder", new { q = ViewBag.q, orderState = 2 })
     </div><!-- .End .tab-pane -->
-    <div class="tab-pane fade" id="tab-3" role="tabpanel" aria-labelledby="tab-6-tab">
+    <div class="tab-pane fade" id="tab-3" role="tabpanel" aria-labelledby="tab-3-tab">
         @Html.Action("RenderTableOrder", new { q = ViewBag.q, orderState = 3 })
     </div><!-- .End .tab-pane -->
-    <div class="tab-pane fade" id="tab-4" role="tabpanel" aria-labelledby="tab-6-tab">
+    <div class="tab-pane fade" id="tab-4" role="tabpanel" aria-labelledby="tab-4-tab">
         @Html.Action("RenderTableOrder", new { q = ViewBag.q, orderState = 4 })
     </div><!-- .End .tab-pane -->
-    <div class="tab-pane fade" id="tab-5" role="tabpanel" aria-labelledby="tab-6-tab">
+    <div class="tab-pane fade" id="tab-5" role="tabpanel" aria-labelledby="tab-5-tab">
         @Html.Action("RenderTableOrder", new { q = ViewBag.q, orderState = 5 })
     </div><!-- .End .tab-pane -->
     <div class="tab-pane fade" id="tab-6" role="tabpanel" aria-labelledby="tab-6-tab">
         @Html.Action("RenderTableOrder", new { q = ViewBag.q, orderState = 6 })
     </div><!-- .End .tab-pane -->
 </div><!-- End .tab-content -->
+
+
+@section scripts{
+    <script>
+        var menu = $("#sidenavMenu")[0].querySelectorAll(".nav-link");
+        menu.forEach((item) => {
+            item.classList.remove("active");
+        })
+        menu[1].classList.add("active");
+    </script>
+}

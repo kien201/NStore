@@ -22,6 +22,7 @@ namespace NStore.Areas.Admin.Controllers
             return View();
         }
 
+        [ChildActionOnly]
         public ActionResult RenderTableOrder(string q, int? orderState)
         {
             var donHang = db.DonHang.Include(d => d.KhachHang);
@@ -31,12 +32,11 @@ namespace NStore.Areas.Admin.Controllers
             }
             if (q != null)
             {
-                donHang = donHang.Where(x => x.KhachHang.hoTen.Contains(q) ||
+                donHang = donHang.Where(x => x.id.ToString().Contains(q) ||
+                                             x.KhachHang.hoTen.Contains(q) ||
                                              x.KhachHang.soDienThoai.Contains(q) ||
-                                             x.ngayDatHang.Value.ToString().Contains(q) ||
-                                             x.ngayGiaoHang.Value.ToString().Contains(q) ||
-                                             x.diaChiGiaoHang.Contains(q) ||
-                                             x.thanhTien.ToString().Contains(q)
+                                             x.ChiTietDonHang.Where(y => y.SanPham.tenSanPham.Contains(q)).Count() > 0 ||
+                                             x.diaChiGiaoHang.Contains(q)
                 );
             }
             return PartialView(donHang.ToList());
@@ -100,10 +100,39 @@ namespace NStore.Areas.Admin.Controllers
 
         public ActionResult UpdateOrderState(int id, byte oldState, byte newState)
         {
-            if(Session["curStaff"] != null)
+            if (Session["curStaff"] != null)
             {
                 var order = db.DonHang.Find(id);
                 order.trangThaiDonHang = newState;
+                //nếu cập nhật đơn hàng thành đang giao thì nghĩa là nhân viên lấy sản phẩm để đi giao => tạo phiếu xuất kho
+                if (newState == 3)
+                {
+                    foreach (var item in order.ChiTietDonHang)
+                    {
+                        if (item.soLuong > db.SanPham.Find(item.idSanPham).soLuongTon) return RedirectToAction("Index", "Order");
+                    }
+                    db.PhieuXuat.Add(new PhieuXuat()
+                    {
+                        idNhanVien = (Session["curStaff"] as NhanVien).id,
+                        ngayXuat = DateTime.Now
+                    });
+                    db.SaveChanges();
+                    int idPhieuXuat = db.PhieuXuat.OrderByDescending(x => x.id).First().id;
+                    foreach (var item in order.ChiTietDonHang)
+                    {
+                        db.ChiTietPhieuXuat.Add(new ChiTietPhieuXuat()
+                        {
+                            idPhieuXuat = idPhieuXuat,
+                            idSanPham = item.idSanPham,
+                            soLuongXuat = item.soLuong
+                        });
+                        var sanPham = db.SanPham.Find(item.idSanPham);
+                        sanPham.soLuongTon -= item.soLuong;
+                        if (sanPham.soLuongTon < 0) sanPham.soLuongTon = 0;
+                    }
+                }
+                //nếu cập nhật đơn hàng thành giao hàng thành công, đặt ngày giao hàng bằng ngày hiện tại
+                if (newState == 4) order.ngayGiaoHang = DateTime.Now;
                 db.NhanVienTiepNhanDonHang.Add(new NhanVienTiepNhanDonHang()
                 {
                     idDonHang = id,

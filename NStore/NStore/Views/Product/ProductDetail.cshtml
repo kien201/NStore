@@ -1,7 +1,7 @@
 ﻿@model NStore.Models.CustomProduct
 
 @{
-    ViewBag.Title = "ProductDetail";
+    ViewBag.Title = "Chi Tiết Sản Phẩm";
 
 }
 
@@ -12,8 +12,8 @@
                 <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                     <div class="container d-flex align-items-center">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">Products</a></li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Product")">Sản Phẩm</a></li>
                             <li class="breadcrumb-item active" aria-current="page">@Model.sanpham.DanhMuc.tenDanhMuc</li>
                         </ol>
                     </div><!-- End .container -->
@@ -70,10 +70,10 @@
 
                                 <div class="social-icons social-icons-sm">
                                     <span class="social-label">Chia sẻ:</span>
-                                    <a  class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
-                                    <a  class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
-                                    <a  class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
-                                    <a  class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                                    <a class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                                    <a class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                                    <a class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                                    <a class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
                                 </div>
                             </div><!-- End .product-details-footer -->
                         </div><!-- End .col-md-6 -->
@@ -151,102 +151,82 @@
                                 }
                             }
                         }'>
-
-
-
-                <div class="product product-7 text-center">
-                    <figure class="product-media">
-
-                        <span class="product-label label-new">Mới</span>
-                        <a href="product.html">
-                            <img src="~/assets/images/products/@Model.list_sanpham.Last().img" alt="Product image" class="product-image">
-                        </a>
-
-                        <div class="product-action-vertical adding_wishlist"id="@Model.list_sanpham.Last().id">
-                            <a class="btn-product-icon btn-wishlist btn-expandable"><span>Thêm vào ưa thích</span></a>
-                        </div><!-- End .product-action-vertical -->
-
-                        <div class="product-action">
-                            <a href="#" class="btn-product btn-cart"><span>Thêm vào giỏ</span></a>
-                        </div><!-- End .product-action -->
-                    </figure><!-- End .product-media -->
-
-                    <div class="product-body">
-                        <div class="product-cat">
-                            <a href="#">@Model.list_sanpham.Last().DanhMuc.tenDanhMuc</a>
-                        </div><!-- End .product-cat -->
-                        <h3 class="product-title"><a href="product.html">@Model.list_sanpham.Last().tenSanPham</a></h3><!-- End .product-title -->
-                        <div class="product-price">
-                            $@Model.list_sanpham.Last().donGia
-                        </div><!-- End .product-price -->
-                    </div><!-- End .product-body -->
-                </div><!-- End .product -->
                 @foreach (var item in Model.list_sanpham)
                 {
-                    if (item.id != Model.list_sanpham.Last().id)
-                    {
-                        <div class="product product-7 text-center">
-                            <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="~/assets/images/products/@item.img" alt="Product image" class="product-image">
-                                </a>
+                    <div class="product text-center">
+                        <figure class="product-media">
+                            @if (item.soLuongTon == 0)
+                            {
+                                <span class="product-label label-out">Đang hết hàng</span>
+                            }
+                            @if (item.giamGia > 0)
+                            {
+                                <span class="product-label label-sale">@item.giamGia% Giảm</span>
+                            }
+                            <a href="@Url.Action("ProductDetail", "Product", new { id = item.id })">
+                                <img src="~/assets/images/products/@item.img" alt="Product image" class="product-image">
+                            </a>
 
-                                <div class="product-action-vertical adding_wishlist" id="@item.id">
-                                    <a class="btn-product-icon btn-wishlist btn-expandable"><span>Thêm vào yêu thích</span></a>
+                            <div class="product-action-vertical adding_wishlist" id="@item.id">
+                                <a class="btn-product-icon btn-wishlist btn-expandable"><span>Thêm vào yêu thích</span></a>
+                            </div><!-- End .product-action-vertical -->
 
-                                </div><!-- End .product-action-vertical -->
+                            <div class="product-action">
+                                <button onclick="AddToCartClick(@item.id)" class="btn-product btn-cart"><span>Thêm Vào Giỏ Hàng</span></button>
+                            </div><!-- End .product-action -->
+                        </figure><!-- End .product-media -->
 
-                                <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart"><span>Thêm vào giỏ</span></a>
-                                </div><!-- End .product-action -->
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">
-                                <div class="product-cat">
-                                    <a href="#">@item.DanhMuc.tenDanhMuc</a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title"><a href="product.html">@item.tenSanPham</a></h3><!-- End .product-title -->
-                                <div class="product-price">
-                                    $@item.donGia
-                                </div><!-- End .product-price -->
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product -->
-
-                    }
+                        <div class="product-body">
+                            <div class="product-cat">
+                                <a href="@Url.Action("Index", "Product", new { category = item.idDanhMuc })">@item.DanhMuc.tenDanhMuc</a>
+                            </div><!-- End .product-cat -->
+                            <h3 class="product-title"><a href="@Url.Action("ProductDetail", "Product", new { id = item.id })">@item.tenSanPham</a></h3><!-- End .product-title -->
+                            <div class="product-price">
+                                @if (item.giamGia > 0)
+                                {
+                                    <span class="new-price">@Convert.ToInt32(item.donGia - (item.donGia * item.giamGia) / 100).ToString("c")</span>
+                                    <span class="old-price">@Convert.ToInt32(item.donGia).ToString("c")</span>
+                                }
+                                else
+                                {
+                                    @Convert.ToInt32(item.donGia - (item.donGia * item.giamGia) / 100).ToString("c")
+                                }
+                            </div><!-- End .product-price -->
+                        </div><!-- End .product-body -->
+                    </div><!-- End .product -->
                 }
-
 
             </div><!-- End .owl-carousel -->
         </div><!-- End .container -->
     </div><!-- End .page-content -->
 </main><!-- End .main -->
 @section scripts{
-    
-<script >
-    var menu = $(".main-nav")[0].querySelectorAll("li");
-    menu.forEach((item) => {
-        item.classList.remove("active");
-    })
-    menu[1].classList.add("active");
 
-    $('.adding_wishlist').click(function () {
-        var id_sanpham = $(this).attr('id');
-        $.ajax({
-            url: '/User/Adding_Wishlist',
-            method: 'POST',
-            data: { id_sanpham },
-            success: function (rs) {
-                alert(rs)
-            },
-            error: function () {
-                alert("thất bại!")
-            }
+    <script>
+        var menu = $(".main-nav")[0].querySelectorAll("li");
+        menu.forEach((item) => {
+            item.classList.remove("active");
         })
-    })
+        menu[1].classList.add("active");
 
-    //add product to cart
-    function AddToCartClick(productId) {
-        AddToCart(productId, 1, "add");
-    }
-</script>
+        $('.adding_wishlist').click(function () {
+            var id_sanpham = $(this).attr('id');
+            $.ajax({
+                url: '/User/Adding_Wishlist',
+                method: 'POST',
+                data: { id_sanpham },
+                success: function (rs) {
+                    alert(rs)
+                },
+                error: function () {
+                    alert("thất bại!")
+                }
+            })
+        })
+
+        //add product to cart
+        function AddToCartClick(productId) {
+            AddToCart(productId, 1, "add");
+        }
+    </script>
 }

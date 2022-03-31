@@ -1,0 +1,110 @@
+﻿
+@{
+    ViewBag.Title = "Nhập kho";
+}
+
+@section styles{
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+}
+
+<div class="form-horizontal">
+    <h4>Nhập kho</h4>
+    <hr />
+    <div class="form-group">
+        <label class="control-label col-md-2">Nhà cung cấp</label>
+        <div class="col-md-10">
+            @Html.DropDownList("idNhaCungCap", null, new { @class = "form-select" })
+        </div>
+    </div>
+
+    <div class="form-group col-md-10" id="product-input-outer">
+        <div class="row">
+            <div class="col-6">
+                <label class="control-label">Sản phẩm</label>
+                @Html.DropDownList("idSanPham", null, new { @class = "form-select" })
+            </div>
+            <div class="col-2">
+                <label class="control-label">Số lượng</label>
+                <input class="form-control" name="soLuong" type="number" min="1" value="1" required />
+            </div>
+            <div class="col-3">
+                <label class="control-label">Đơn giá</label>
+                <input class="form-control" name="donGia" type="number" min="0" value="0" required />
+            </div>
+            <div class="col-1 d-flex justify-content-center align-items-end">
+                <span style="cursor: pointer" onclick="DeleteProductInput(this)"><i class="material-icons" style="font-size: 30px; color: #dc3545">&#xe0e9;</i></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10 my-2">
+            <input type="button" onclick="AddProductInput()" value="Thêm sản phẩm" class="btn btn-primary" />
+            <input type="button" onclick="NhapKho()" value="Nhập kho" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Trở về", "Index")
+</div>
+
+@section scripts{
+    <script>
+        var productInput = document.querySelector("#product-input-outer .row").cloneNode(true);
+        function AddProductInput() {
+            document.querySelector("#product-input-outer").appendChild(productInput.cloneNode(true));
+        }
+
+        function DeleteProductInput(element) {
+            var e = element.parentNode.parentNode;
+            var productInputRow = document.querySelectorAll("#product-input-outer .row");
+            if (productInputRow.length > 1) {
+                e.parentNode.removeChild(e);
+            }
+            else {
+                alert("Không được xoá hết!");
+            }
+        }
+
+        function NhapKho() {
+            var productInputRow = document.querySelectorAll("#product-input-outer .row");
+            let listSanPham = [];
+            let stopStr = null;
+            productInputRow.forEach(element => {
+                let idSanPham = element.querySelector('select[name="idSanPham"]').value;
+                let soLuongNhap = element.querySelector('input[name="soLuong"]').value;
+                let donGiaNhap = element.querySelector('input[name="donGia"]').value;
+
+                if (listSanPham.find(x => x.idSanPham === idSanPham) != null) {
+                    let tmp = element.querySelector('select[name="idSanPham"]');
+                    stopStr = "Trùng sản phẩm: " + tmp.options[tmp.selectedIndex].text;
+                }
+
+                listSanPham.push({ idSanPham, soLuongNhap, donGiaNhap });
+            })
+
+            if (stopStr) {
+                alert(stopStr);
+                return;
+            }
+            else {
+                let idNhaCungCap = document.querySelector('select[name="idNhaCungCap"]').value;
+                $.ajax({
+                    url: "/Admin/Kho/NhapKhoPost",
+                    method: "POST",
+                    data: { idNhaCungCap, listSanPham },
+                    success: function (result) {
+                        alert(result);
+                        let productInputOuter = document.querySelector("#product-input-outer");
+                        productInputOuter.innerHTML = "";
+                        productInputOuter.appendChild(productInput.cloneNode(true));
+                    },
+                    error: function () {
+                        alert("lỗi nhập kho");
+                    }
+                })
+            }
+        }
+    </script>
+}

@@ -9,7 +9,7 @@ namespace NStore.Models.EF
     public class PhieuXuatMetadata
     {
         [Display(Name = "Ngày xuất")]
-        [DataType(DataType.Date)]
+        [DisplayFormat(NullDisplayText = "??", DataFormatString = "{0:HH:mm - dd/MM/yyyy}")]
         public Nullable<System.DateTime> ngayXuat { get; set; }
     }
 }

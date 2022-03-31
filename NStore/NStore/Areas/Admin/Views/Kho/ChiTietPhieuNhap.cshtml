@@ -1,0 +1,55 @@
+﻿@model NStore.Models.EF.PhieuNhap
+
+@{
+    ViewBag.Title = "Chi tiết phiếu nhập";
+}
+
+<div class="row">
+    <h4>Chi tiết phiếu nhập - #@Model.id</h4>
+    <hr />
+    <div class="col-12 col-lg-8">
+        <dl class="dl-horizontal">
+            <dt>
+                Nhân viên thực hiện
+            </dt>
+
+            <dd>
+                @Html.ActionLink(Model.NhanVien.hoTen, "Details", "Staff", new { Model.NhanVien.id }, null)
+            </dd>
+
+            <dt>
+                Nhà cung cấp
+            </dt>
+
+            <dd>
+                @Html.ActionLink(Model.NhaCungCap.tenNhaCungCap, "Details", "NhaCungCap", new { Model.NhaCungCap.id }, null)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ngayNhap)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ngayNhap)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="col-12 col-lg-4" style="border-left: 1px solid #ccc;">
+        <dt>
+            Sản phẩm đã nhập
+        </dt>
+
+        <dd>
+            <ul>
+                @foreach (var item in Model.ChiTietPhieuNhap)
+                {
+                    <li>@Html.ActionLink(@item.SanPham.tenSanPham, "Details", "SanPham", new { item.SanPham.id }, null) x @item.soLuongNhap (@Convert.ToInt32(item.donGiaNhap).ToString("c") / 1)</li>
+                }
+            </ul>
+        </dd>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Trở về", "Index")
+</p>

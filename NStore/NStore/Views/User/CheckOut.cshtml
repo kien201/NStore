@@ -65,7 +65,7 @@
                                     @foreach (var item in Model)
                                     {
                                         <tr>
-                                            <td><a href="#">@item.SanPham.tenSanPham x @item.soLuong</a></td>
+                                            <td><a href="@Url.Action("ProductDetail", "Product", new { id = item.idSanPham })">@item.SanPham.tenSanPham x @item.soLuong</a></td>
                                             <td>@Convert.ToInt32((item.SanPham.donGia - item.SanPham.donGia * item.SanPham.giamGia / 100) * item.soLuong).ToString("c")</td>
                                         </tr>
                                     }

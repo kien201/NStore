@@ -5,8 +5,6 @@
     int? category = ViewBag.category;
     string q = ViewBag.q;
     string sortby = ViewBag.sortby;
-    int page = ViewBag.page;
-    int pageLimit = ViewBag.pageLimit;
 }
 
 @section styles{
@@ -30,16 +28,15 @@
             <div class="toolbox-right justify-content-center">
                 @using (Html.BeginForm("Index", "Product", FormMethod.Get))
                 {
-
                     <div class="toolbox-sort">
                         <label for="sortby">Sắp xếp theo:</label>
                         <div class="select-custom">
                             <select name="sortby" id="sortby" class="form-control">
-                                <option value="popular" selected="selected">Nổi bật</option>
-                                <option value="newest">Mới nhất</option>
-                                <option value="sales">Bán chạy</option>
-                                <option value="price-asc">Giá - Thấp đến cao</option>
-                                <option value="price-desc">Giá - Cao đến thấp</option>
+                                <option value="popular" @(sortby == "popular" ? "selected" : "")>Nổi bật</option>
+                                <option value="newest" @(sortby == "newest" ? "selected" : "")>Mới nhất</option>
+                                <option value="sales" @(sortby == "sales" ? "selected" : "")>Bán chạy</option>
+                                <option value="price-asc" @(sortby == "price-asc" ? "selected" : "")>Giá - Thấp đến cao</option>
+                                <option value="price-desc" @(sortby == "price-desc" ? "selected" : "")>Giá - Cao đến thấp</option>
                             </select>
                         </div>
                         <input type="submit" class="ml-4" title="Sắp xếp" value="Sắp Xếp" />
@@ -97,10 +94,23 @@
                 }
             </div><!-- End .row -->
         </div><!-- End .products -->
-
+        @{
+            int page = ViewBag.page;
+            int? prevPage = ViewBag.prevPage;
+            int? nextPage = ViewBag.nextPage;
+        }
         <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center my-4">
-                @if (page - 1 <= 0)
+                @if (prevPage != null)
+                {
+                    <li class="page-item">
+                        <a class="page-link page-link-prev" href="@Url.Action("Index", new { page = prevPage, category, q, sortby })" aria-label="Previous" tabindex="-1">
+                            <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Trước
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="@Url.Action("Index", new { page = prevPage, category, q, sortby })">@prevPage</a></li>
+                }
+                else
                 {
                     <li class="page-item disabled">
                         <a class="page-link page-link-prev" href="#" aria-label="Previous" tabindex="-1">
@@ -108,21 +118,12 @@
                         </a>
                     </li>
                 }
-                else
-                {
-                    <li class="page-item">
-                        <a class="page-link page-link-prev" href="@Url.Action("Index", new { page = page-1, category, q, sortby })" aria-label="Previous" tabindex="-1">
-                            <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Trước
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="@Url.Action("Index", new { page = page-1, category, q, sortby })">@(page-1)</a></li>
-                }
                 <li class="page-item active" aria-current="page"><a class="page-link" href="@Url.Action("Index", new { page, category, q, sortby })">@page</a></li>
-                @if (page + 1 <= pageLimit)
+                @if (nextPage != null)
                 {
-                    <li class="page-item"><a class="page-link" href="@Url.Action("Index", new { page = page+1, category, q, sortby })">@(page+1)</a></li>
+                    <li class="page-item"><a class="page-link" href="@Url.Action("Index", new { page = nextPage, category, q, sortby })">@nextPage</a></li>
                     <li class="page-item">
-                        <a class="page-link page-link-next" href="@Url.Action("Index", new { page = page+1, category, q, sortby })" aria-label="Next">
+                        <a class="page-link page-link-next" href="@Url.Action("Index", new { page = nextPage, category, q, sortby })" aria-label="Next">
                             Sau <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
                         </a>
                     </li>

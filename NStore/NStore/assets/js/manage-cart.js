@@ -7,39 +7,47 @@ function LoadCart_Layout() {
             url: "/User/GetListCart",
             type: "POST",
             success: (result) => {
+                let length = 0;
+                result.forEach(item => {
+                    if (item.soLuong < item.soLuongSanPhamTon) length += 1;
+                })
                 let html = `<a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                 <i class="icon-shopping-cart"></i>
-                                <span class="cart-count">${result.length}</span>
+                                <span class="cart-count">${length}</span>
                                 <span class="cart-txt">Giỏ Hàng</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <div class="dropdown-cart-products">`;
                 result.forEach((item) => {
-                html += `           <div class="product">
-                                        <div class="product-cart-details">
-                                            <h4 class="product-title">
-                                                <a href="#">${item.tenSanPham}</a>
-                                            </h4>
+                    if (item.soLuong < item.soLuongSanPhamTon) {
+                        html += `           <div class="product">
+                                                <div class="product-cart-details">
+                                                    <h4 class="product-title">
+                                                        <a href="/Product/ProductDetail/${item.idSanPham}">${item.tenSanPham}</a>
+                                                    </h4>
 
-                                            <span class="cart-product-info">
-                                                <span class="cart-product-qty">${item.soLuong}</span>
-                                                x ${(item.donGia - item.donGia*item.giamGia/100).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}
-                                            </span>
-                                        </div><!-- End .product-cart-details -->
+                                                    <span class="cart-product-info">
+                                                        <span class="cart-product-qty">${item.soLuong}</span>
+                                                        x ${(item.donGia - item.donGia * item.giamGia / 100).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}
+                                                    </span>
+                                                </div><!-- End .product-cart-details -->
 
-                                        <figure class="product-image-container">
-                                            <a href="#" class="product-image">
-                                                <img src="/assets/images/products/${item.img}" alt="product">
-                                            </a>
-                                        </figure>
-                                    </div><!-- End .product -->`;
+                                                <figure class="product-image-container">
+                                                    <a href="#" class="product-image">
+                                                        <img src="/assets/images/products/${item.img}" alt="product">
+                                                    </a>
+                                                </figure>
+                                            </div><!-- End .product -->`;
+                    }
                 })
                 html += `       </div><!-- End .cart-product -->
                                 <div class="dropdown-cart-total">
                                     <span>Tổng</span>
                                     <span class="cart-total-price">`;
                 let total = 0;
-                result.forEach((item) => { total += (item.donGia - item.donGia*item.giamGia/100) * item.soLuong });
+                result.forEach((item) => {
+                    if (item.soLuong < item.soLuongSanPhamTon) total += (item.donGia - item.donGia * item.giamGia / 100) * item.soLuong;
+                });
                 html += `           ${total.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
                                 </div><!-- End .dropdown-cart-total -->
 
@@ -77,11 +85,12 @@ function LoadCartTable() {
                                         </figure>
 
                                         <h3 class="product-title">
-                                            <a href="#">${item.tenSanPham}</a>
+                                            <a href="/Product/ProductDetail/${item.idSanPham}">${item.tenSanPham}</a>
+                                            ${item.soLuongSanPhamTon == 0 ? ' - <span class="text-danger">hết hàng</span>' : ""}
                                         </h3><!-- End .product-title -->
                                     </div><!-- End .product -->
                                 </td>
-                                <td class="price-col">${(item.donGia - item.donGia*item.giamGia/100).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</td>
+                                <td class="price-col">${(item.donGia - item.donGia * item.giamGia / 100).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</td>
                                 <td class="quantity-col">
                                     <div class="cart-product-quantity">
                                         <input type="number" class="form-control" value="${item.soLuong}" min="1" max="10000" step="1" data-decimals="0" required>
