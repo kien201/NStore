@@ -17,6 +17,25 @@
                 @Html.ActionLink(Model.NhanVien.hoTen, "Details", "Staff", new { Model.NhanVien.id }, null)
             </dd>
 
+            @if (Model.idDonHang != null)
+            {
+                <dt>
+                    Đơn hàng
+                </dt>
+
+                <dd>
+                    @Html.ActionLink("#" + Model.idDonHang, "Details", "Order", new { Model.DonHang.id }, null)
+                </dd>
+
+                <dt>
+                    Khách đặt
+                </dt>
+
+                <dd>
+                    @Html.ActionLink(Model.DonHang.KhachHang.hoTen, "Details", "Customer", new { Model.DonHang.KhachHang.id }, null)
+                </dd>
+            }
+
             <dt>
                 @Html.DisplayNameFor(model => model.ngayXuat)
             </dt>
@@ -36,7 +55,7 @@
             <ul>
                 @foreach (var item in Model.ChiTietPhieuXuat)
                 {
-                    <li>@Html.ActionLink(@item.SanPham.tenSanPham, "Details", "SanPham", new { item.SanPham.id }, null) x @item.soLuongXuat</li>
+                    <li>@Html.ActionLink(@item.SanPham.tenSanPham, "Details", "SanPham", new { item.SanPham.id }, null) x @item.soLuongXuat : @Convert.ToInt32(item.donGiaXuat * item.soLuongXuat).ToString("c")</li>
                 }
             </ul>
         </dd>

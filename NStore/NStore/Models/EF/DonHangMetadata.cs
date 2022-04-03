@@ -20,6 +20,7 @@ namespace NStore.Models.EF
         public Nullable<System.DateTime> ngayGiaoHang { get; set; }
 
         [Display(Name = "Ghi chú")]
+        [DataType(DataType.MultilineText)]
         [DisplayFormat(NullDisplayText = "??")]
         public string ghiChu { get; set; }
 

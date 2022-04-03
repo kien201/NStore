@@ -22,8 +22,10 @@ namespace NStore.Models.EF
         public int id { get; set; }
         public Nullable<int> idNhanVien { get; set; }
         public Nullable<System.DateTime> ngayXuat { get; set; }
+        public Nullable<int> idDonHang { get; set; }
     
         public virtual ICollection<ChiTietPhieuXuat> ChiTietPhieuXuat { get; set; }
         public virtual NhanVien NhanVien { get; set; }
+        public virtual DonHang DonHang { get; set; }
     }
 }

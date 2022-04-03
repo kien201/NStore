@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace NStore.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "admin, mod")]
     public class KhoController : Controller
     {
         private NStoreEntities db = new NStoreEntities();
@@ -91,7 +92,7 @@ namespace NStore.Areas.Admin.Controllers
             var phieuNhap = db.PhieuNhap.Select(x => x);
             if (q != null)
             {
-                phieuNhap = phieuNhap.Where(x => x.id.ToString().Contains(q) ||
+                phieuNhap = phieuNhap.Where(x => ("#" + x.id.ToString()).Contains(q) ||
                                                  x.NhanVien.hoTen.Contains(q) ||
                                                  x.NhaCungCap.tenNhaCungCap.Contains(q));
             }
@@ -156,7 +157,7 @@ namespace NStore.Areas.Admin.Controllers
                 {
                     var sanPham = db.SanPham.Find(item.idSanPham);
                     if (item.soLuongXuat > sanPham.soLuongTon)
-                        return Json("Sản phẩm " + sanPham.tenSanPham + " không đủ số lượng để xuất kho", JsonRequestBehavior.AllowGet);
+                        return Json("Sản phẩm " + sanPham.tenSanPham + " không đủ số lượng để xuất kho, còn lại " + sanPham.soLuongTon, JsonRequestBehavior.AllowGet);
                 }
                 db.PhieuXuat.Add(new PhieuXuat()
                 {
@@ -171,7 +172,8 @@ namespace NStore.Areas.Admin.Controllers
                     {
                         idPhieuXuat = idPhieuXuat,
                         idSanPham = item.idSanPham,
-                        soLuongXuat = item.soLuongXuat
+                        soLuongXuat = item.soLuongXuat,
+                        donGiaXuat = item.donGiaXuat
                     });
                     var sanPham = db.SanPham.Find(item.idSanPham);
                     sanPham.soLuongTon -= item.soLuongXuat;
@@ -192,7 +194,9 @@ namespace NStore.Areas.Admin.Controllers
             var phieuXuat = db.PhieuXuat.Select(x => x);
             if (q != null)
             {
-                phieuXuat = phieuXuat.Where(x => x.id.ToString().Contains(q) ||
+                phieuXuat = phieuXuat.Where(x => ("#" + x.id).Contains(q) ||
+                                                 ("#" + x.DonHang.id).Contains(q) ||
+                                                 x.DonHang.KhachHang.hoTen.Contains(q) ||
                                                  x.NhanVien.hoTen.Contains(q));
             }
             return PartialView(phieuXuat.ToList());

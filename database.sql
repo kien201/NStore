@@ -84,13 +84,15 @@ CREATE TABLE ChiTietPhieuNhap(
 CREATE TABLE PhieuXuat(
 	id INT PRIMARY KEY IDENTITY,
 	idNhanVien INT FOREIGN KEY REFERENCES NhanVien(id) ON DELETE SET NULL,
+	idDonHang INT FOREIGN KEY REFERENCES DonHang(id) ON DELETE SET NULL,
 	ngayXuat DATETIME
 )
 CREATE TABLE ChiTietPhieuXuat(
 	id INT PRIMARY KEY IDENTITY,
 	idPhieuXuat INT FOREIGN KEY REFERENCES PhieuXuat(id) ON DELETE CASCADE,
 	idSanPham INT FOREIGN KEY REFERENCES SanPham(id) ON DELETE SET NULL,
-	soLuongXuat INT
+	soLuongXuat INT,
+	donGiaXuat INT
 )
 CREATE TABLE SanPhamYeuThich(
 	id INT PRIMARY KEY IDENTITY,
@@ -108,22 +110,13 @@ CREATE TABLE DonHang(
 	id INT PRIMARY KEY IDENTITY,
 	idKhachHang INT FOREIGN KEY REFERENCES KhachHang(id),
 	ngayDatHang DATETIME,
-	diaChiGiaoHang NVARCHAR(255),
 	ngayGiaoHang DATETIME,
+	diaChiGiaoHang NVARCHAR(255),
 	ghiChu NVARCHAR(4000),
 	hinhThucThanhToan NVARCHAR(100),
 	thanhTien INT,
 	trangThaiThanhToan BIT, ---0.chưa thanh toán---1.đã thanh toán
 	trangThaiDonHang TINYINT ---1.chờ xác nhận---2.Chờ lấy hàng---3.Đang giao---4.Đã giao---5.Đã hủy---6.Trả hàng/Hoàn tiền
-)
-CREATE TABLE NhanVienTiepNhanDonHang(
-	id INT PRIMARY KEY IDENTITY,
-	idDonHang INT FOREIGN KEY REFERENCES DonHang(id) ON DELETE CASCADE,
-	idNhanVien INT FOREIGN KEY REFERENCES NhanVien(id) ON DELETE SET NULL,
-	ngayNhanDon DATETIME,
-	trangThaiDonHang_Cu TINYINT,
-	trangThaiDonHang_Moi TINYINT
-	---khi nhân viên tiếp nhận đơn thay đổi trạng thái đơn hàng, sẽ lưu lại lịch sử
 )
 CREATE TABLE ChiTietDonHang(
 	id INT PRIMARY KEY IDENTITY,

@@ -4,6 +4,10 @@
     ViewBag.Title = "Sửa";
 }
 
+@section styles{
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+}
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -34,7 +38,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ghiChu, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ghiChu, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ghiChu, new { htmlAttributes = new { @class = "form-control", @rows = "5" } })
                 @Html.ValidationMessageFor(model => model.ghiChu, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -53,16 +57,16 @@
                 @switch (Model.trangThaiDonHang)
                 {
                     case 1:
-                        @Html.ActionLink("Xác nhận đơn hàng", "UpdateOrderState", new { Model.id, oldState = Model.trangThaiDonHang, newState = 2 }, new { @class = "btn btn-primary" })
+                        <button class="btn btn-primary" onclick="UpdateOrderState(@Model.id, @Model.trangThaiDonHang, 2)">Xác nhận đơn hàng</button>
                         break;
                     case 2:
-                        @Html.ActionLink("Giao hàng", "UpdateOrderState", new { Model.id, oldState = Model.trangThaiDonHang, newState = 3 }, new { @class = "btn btn-primary" })
+                        <button class="btn btn-primary" onclick="UpdateOrderState(@Model.id, @Model.trangThaiDonHang, 3)">Giao hàng</button>
                         break;
                     case 3:
-                        @Html.ActionLink("Hoàn thành", "UpdateOrderState", new { Model.id, oldState = Model.trangThaiDonHang, newState = 4 }, new { @class = "btn btn-primary" })
+                        <button class="btn btn-primary" onclick="UpdateOrderState(@Model.id, @Model.trangThaiDonHang, 4)">Hoàn thành</button>
                         break;
                     case 4:
-                        @Html.ActionLink("Trả hàng/Hoàn tiền", "UpdateOrderState", new { Model.id, oldState = Model.trangThaiDonHang, newState = 6 }, new { @class = "btn btn-primary" })
+                        <button class="btn btn-primary" onclick="UpdateOrderState(@Model.id, @Model.trangThaiDonHang, 6)">Trả hàng/Hoàn tiền</button>
                         break;
                 }
                 @switch (Model.trangThaiDonHang)
@@ -70,8 +74,7 @@
                     case 1:
                     case 2:
                     case 3:
-                    case 4:
-                        @Html.ActionLink("Huỷ đơn hàng", "UpdateOrderState", new { Model.id, oldState = Model.trangThaiDonHang, newState = 5 }, new { @class = "btn btn-danger" })
+                        <button class="btn btn-danger" onclick="UpdateOrderState(@Model.id, @Model.trangThaiDonHang, 5)">Huỷ đơn hàng</button>
                         break;
                 }
             </div>
@@ -86,5 +89,21 @@
 </div>
 
 @section Scripts {
+    <script>
+        function UpdateOrderState(id, oldState, newState) {
+            $.ajax({
+                url: "/Admin/Order/UpdateOrderState",
+                method: "POST",
+                data: { id, oldState, newState },
+                success: function (result) {
+                    if (result == 1) window.location = "/Admin/Order/Index";
+                    else alert(result);
+                },
+                error: function () {
+                    alert("lỗi");
+                }
+            })
+        }
+    </script>
     @Scripts.Render("~/bundles/jqueryval")
 }

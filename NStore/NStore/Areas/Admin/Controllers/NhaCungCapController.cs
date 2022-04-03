@@ -10,6 +10,7 @@ using NStore.Models.EF;
 
 namespace NStore.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "admin, mod")]
     public class NhaCungCapController : Controller
     {
         private NStoreEntities db = new NStoreEntities();

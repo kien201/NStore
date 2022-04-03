@@ -44,7 +44,7 @@
             <ul>
                 @foreach (var item in Model.ChiTietPhieuNhap)
                 {
-                    <li>@Html.ActionLink(@item.SanPham.tenSanPham, "Details", "SanPham", new { item.SanPham.id }, null) x @item.soLuongNhap (@Convert.ToInt32(item.donGiaNhap).ToString("c") / 1)</li>
+                <li>@Html.ActionLink(@item.SanPham.tenSanPham, "Details", "SanPham", new { item.SanPham.id }, null) x @item.soLuongNhap : @Convert.ToInt32(item.donGiaNhap * item.soLuongNhap).ToString("c")</li>
                 }
             </ul>
         </dd>

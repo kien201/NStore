@@ -17,7 +17,7 @@ namespace NStore.Models.EF
         public DonHang()
         {
             this.ChiTietDonHang = new HashSet<ChiTietDonHang>();
-            this.NhanVienTiepNhanDonHang = new HashSet<NhanVienTiepNhanDonHang>();
+            this.PhieuXuat = new HashSet<PhieuXuat>();
         }
     
         public int id { get; set; }
@@ -33,6 +33,6 @@ namespace NStore.Models.EF
     
         public virtual ICollection<ChiTietDonHang> ChiTietDonHang { get; set; }
         public virtual KhachHang KhachHang { get; set; }
-        public virtual ICollection<NhanVienTiepNhanDonHang> NhanVienTiepNhanDonHang { get; set; }
+        public virtual ICollection<PhieuXuat> PhieuXuat { get; set; }
     }
 }

@@ -200,9 +200,6 @@
     </Compile>
     <Compile Include="Models\EF\NhanVienMetadata.cs" />
     <Compile Include="Models\EF\NhanVienPartial.cs" />
-    <Compile Include="Models\EF\NhanVienTiepNhanDonHang.cs">
-      <DependentUpon>ModelNStore.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\EF\NhomDanhMuc.cs">
       <DependentUpon>ModelNStore.tt</DependentUpon>
     </Compile>

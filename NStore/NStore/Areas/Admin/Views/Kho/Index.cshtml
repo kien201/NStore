@@ -27,10 +27,10 @@
         <a class="nav-link active" data-toggle="tab" href="#tab-all" role="tab" aria-controls="tab-all" aria-selected="true">Tất cả</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="false">Còn hàng (@Model.Where(x=>x.soLuongTon > 0).Count())</a>
+        <a class="nav-link" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="false">Còn hàng <span class="text-danger">@Model.Where(x => x.soLuongTon > 0).Count()</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">Hết hàng (@Model.Where(x => x.soLuongTon == 0).Count())</a>
+        <a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">Hết hàng <span class="text-danger">@Model.Where(x => x.soLuongTon == 0).Count()</span></a>
     </li>
     <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="false">Nhập kho</a>
@@ -39,23 +39,47 @@
         <a class="nav-link" data-toggle="tab" href="#tab-4" role="tab" aria-controls="tab-4" aria-selected="false">Xuất kho</a>
     </li>
 </ul>
-<div class="tab-content">
-    <div class="tab-pane fade show active" id="tab-all" role="tabpanel" aria-labelledby="tab-all-tab">
-        @Html.Action("RenderInventory", new { q = ViewBag.q })
-    </div><!-- .End .tab-pane -->
-    <div class="tab-pane fade" id="tab-1" role="tabpanel" aria-labelledby="tab-1-tab">
-        @Html.Action("RenderInventory", new { q = ViewBag.q, type = "stock" })
-    </div><!-- .End .tab-pane -->
-    <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="tab-2-tab">
-        @Html.Action("RenderInventory", new { q = ViewBag.q, type = "out-stock" })
-    </div><!-- .End .tab-pane -->
-    <div class="tab-pane fade" id="tab-3" role="tabpanel" aria-labelledby="tab-3-tab">
-        @Html.Action("RenderPhieuNhap", new { q = ViewBag.q })
-    </div><!-- .End .tab-pane -->
-    <div class="tab-pane fade" id="tab-4" role="tabpanel" aria-labelledby="tab-4-tab">
-        @Html.Action("RenderPhieuXuat", new { q = ViewBag.q })
-    </div><!-- .End .tab-pane -->
-</div><!-- End .tab-content -->
+<div class="row">
+    <div class="container-xl">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-add mt-0 mb-3">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <h2 class="table-title">Kho hàng</h2>
+                        </div>
+                        <div class="col-sm-4">
+                            @using (Html.BeginForm("Index", "Kho", FormMethod.Get))
+                            {
+                                <div class="search-box">
+                                    <i class="material-icons">&#xE8B6;</i>
+                                    <input type="text" name="q" class="form-control" placeholder="Tìm kiếm&hellip;">
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="tab-all" role="tabpanel" aria-labelledby="tab-all-tab">
+                        @Html.Action("RenderInventory", new { q = ViewBag.q })
+                    </div><!-- .End .tab-pane -->
+                    <div class="tab-pane fade" id="tab-1" role="tabpanel" aria-labelledby="tab-1-tab">
+                        @Html.Action("RenderInventory", new { q = ViewBag.q, type = "stock" })
+                    </div><!-- .End .tab-pane -->
+                    <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="tab-2-tab">
+                        @Html.Action("RenderInventory", new { q = ViewBag.q, type = "out-stock" })
+                    </div><!-- .End .tab-pane -->
+                    <div class="tab-pane fade" id="tab-3" role="tabpanel" aria-labelledby="tab-3-tab">
+                        @Html.Action("RenderPhieuNhap", new { q = ViewBag.q })
+                    </div><!-- .End .tab-pane -->
+                    <div class="tab-pane fade" id="tab-4" role="tabpanel" aria-labelledby="tab-4-tab">
+                        @Html.Action("RenderPhieuXuat", new { q = ViewBag.q })
+                    </div><!-- .End .tab-pane -->
+                </div><!-- End .tab-content -->
+            </div>
+        </div>
+    </div>
+</div>
 
 @section scripts{
     <script>

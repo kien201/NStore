@@ -1,6 +1,6 @@
 ﻿@{
     Html.Action("CheckAuthenticate", "Login");
-    var curStarr = Session["curStaff"] as NStore.Models.EF.NhanVien;
+    var curStaff = Session["curStaff"] as NStore.Models.EF.NhanVien;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -75,7 +75,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             Danh Mục
                         </a>
-                        @if (curStarr.chucVu == 1)
+                        @if (curStaff.chucVu == 1)
                         {
                             <a class="nav-link" href="@Url.Action("Index", "Staff")">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
@@ -88,7 +88,7 @@
                 <div class="sb-sidenav-footer">
                     <span class="small">
                         Người dùng:
-                        @curStarr.hoTen
+                        @curStaff.hoTen
                     </span>
                 </div>
             </nav>

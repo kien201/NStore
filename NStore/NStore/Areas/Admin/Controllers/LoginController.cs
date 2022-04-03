@@ -8,12 +8,10 @@ using System.Web.Security;
 
 namespace NStore.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "admin, mod")]
     public class LoginController : Controller
     {
         NStoreEntities db = new NStoreEntities();
         // GET: Admin/Login
-        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
@@ -21,7 +19,6 @@ namespace NStore.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AllowAnonymous]
         public ActionResult Index(NhanVien nhanVien, string rememberPass)
         {
             nhanVien.matKhau = Code.Md5hash.md5(nhanVien.matKhau);
@@ -40,6 +37,7 @@ namespace NStore.Areas.Admin.Controllers
             return View(nhanVien);
         }
 
+        [Authorize(Roles = "admin, mod")]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
@@ -47,6 +45,7 @@ namespace NStore.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "admin, mod")]
         public EmptyResult CheckAuthenticate()
         {
             if (User.Identity.Name.StartsWith("staff"))

@@ -18,6 +18,7 @@ namespace NStore.Models.EF
         public Nullable<int> idPhieuXuat { get; set; }
         public Nullable<int> idSanPham { get; set; }
         public Nullable<int> soLuongXuat { get; set; }
+        public Nullable<int> donGiaXuat { get; set; }
     
         public virtual PhieuXuat PhieuXuat { get; set; }
         public virtual SanPham SanPham { get; set; }

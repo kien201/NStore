@@ -34,7 +34,6 @@ namespace NStore.Models.EF
         public DbSet<KhachHang> KhachHang { get; set; }
         public DbSet<NhaCungCap> NhaCungCap { get; set; }
         public DbSet<NhanVien> NhanVien { get; set; }
-        public DbSet<NhanVienTiepNhanDonHang> NhanVienTiepNhanDonHang { get; set; }
         public DbSet<NhomDanhMuc> NhomDanhMuc { get; set; }
         public DbSet<PhieuNhap> PhieuNhap { get; set; }
         public DbSet<PhieuXuat> PhieuXuat { get; set; }

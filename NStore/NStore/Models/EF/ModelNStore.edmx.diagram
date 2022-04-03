@@ -14,7 +14,6 @@
         <EntityTypeShape EntityType="NStoreModel.KhachHang" Width="1.5" PointX="8.25" PointY="1.375" />
         <EntityTypeShape EntityType="NStoreModel.NhaCungCap" Width="1.5" PointX="3" PointY="14" />
         <EntityTypeShape EntityType="NStoreModel.NhanVien" Width="1.5" PointX="3" PointY="3.25" />
-        <EntityTypeShape EntityType="NStoreModel.NhanVienTiepNhanDonHang" Width="1.5" PointX="10.5" PointY="12.75" />
         <EntityTypeShape EntityType="NStoreModel.NhomDanhMuc" Width="1.5" PointX="0.75" PointY="9.125" />
         <EntityTypeShape EntityType="NStoreModel.PhieuNhap" Width="1.5" PointX="5.25" PointY="13.875" />
         <EntityTypeShape EntityType="NStoreModel.PhieuXuat" Width="1.5" PointX="5.25" PointY="4.125" />
@@ -30,16 +29,15 @@
         <AssociationConnector Association="NStoreModel.FK__DanhMuc__idNhomD__2A4B4B5E" />
         <AssociationConnector Association="NStoreModel.FK__SanPham__idDanhM__2D27B809" />
         <AssociationConnector Association="NStoreModel.FK__DonHang__idKhach__4AB81AF0" />
-        <AssociationConnector Association="NStoreModel.FK__NhanVienT__idDon__4D94879B" />
         <AssociationConnector Association="NStoreModel.FK__GioHang__idKhach__46E78A0C" />
         <AssociationConnector Association="NStoreModel.FK__GioHang__idSanPh__47DBAE45" />
         <AssociationConnector Association="NStoreModel.FK__SanPhamYe__idKha__4316F928" />
         <AssociationConnector Association="NStoreModel.FK__PhieuNhap__idNha__35BCFE0A" />
-        <AssociationConnector Association="NStoreModel.FK__NhanVienT__idNha__4E88ABD4" />
         <AssociationConnector Association="NStoreModel.FK__PhieuNhap__idNha__34C8D9D1" />
         <AssociationConnector Association="NStoreModel.FK__PhieuXuat__idNha__3C69FB99" />
         <AssociationConnector Association="NStoreModel.FK__SanPhamIm__idSan__300424B4" />
         <AssociationConnector Association="NStoreModel.FK__SanPhamYe__idSan__440B1D61" />
+        <AssociationConnector Association="NStoreModel.FK__PhieuXuat__idDon__6E01572D" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

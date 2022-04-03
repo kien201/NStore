@@ -16,7 +16,6 @@ namespace NStore.Models.EF
     {
         public NhanVien()
         {
-            this.NhanVienTiepNhanDonHang = new HashSet<NhanVienTiepNhanDonHang>();
             this.PhieuNhap = new HashSet<PhieuNhap>();
             this.PhieuXuat = new HashSet<PhieuXuat>();
         }
@@ -33,7 +32,6 @@ namespace NStore.Models.EF
         public string diaChi { get; set; }
         public Nullable<byte> chucVu { get; set; }
     
-        public virtual ICollection<NhanVienTiepNhanDonHang> NhanVienTiepNhanDonHang { get; set; }
         public virtual ICollection<PhieuNhap> PhieuNhap { get; set; }
         public virtual ICollection<PhieuXuat> PhieuXuat { get; set; }
     }
