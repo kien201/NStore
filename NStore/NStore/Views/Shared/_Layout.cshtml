@@ -50,7 +50,10 @@
                     </div><!-- End .header-left -->
 
                     <div class="header-right">
-                        <a id="toggle-signin-modal" href="#signin-modal" data-toggle="modal">Đăng Nhập / Đăng Ký</a>
+                        @if (curCustomer == null)
+                        {
+                            <a id="toggle-signin-modal" href="#signin-modal" data-toggle="modal">Đăng Nhập / Đăng Ký</a>
+                        }
                     </div><!-- End .header-right -->
                 </div><!-- End .container -->
             </div><!-- End .header-top -->
