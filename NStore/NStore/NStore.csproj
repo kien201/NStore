@@ -739,8 +739,6 @@
     <Content Include="assets\images\slider\slide-2.jpg" />
     <Content Include="assets\images\slider\slide-3-480w.jpg" />
     <Content Include="assets\images\slider\slide-3.jpg" />
-    <Content Include="assets\images\stores\img-1.jpg" />
-    <Content Include="assets\images\stores\img-2.jpg" />
     <Content Include="assets\images\team\about-2\member-1.jpg" />
     <Content Include="assets\images\team\about-2\member-2.jpg" />
     <Content Include="assets\images\team\about-2\member-3.jpg" />
