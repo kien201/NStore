@@ -24,16 +24,16 @@
     <div class="dashboard">
         <div class="container">
             <div class="row">
-                <aside class="col-md-4 col-lg-3">
+                <aside class="col-md-3 col-lg-2">
                     <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="tab-dashboard-link" data-toggle="tab" href="#tab-dashboard" role="tab" aria-controls="tab-dashboard" aria-selected="true">Dashboard</a>
+                            <a class="nav-link active" id="tab-dashboard-link" data-toggle="tab" href="#tab-dashboard" role="tab" aria-controls="tab-dashboard" aria-selected="true">Bản tin</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">Orders</a>
+                            <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">Đơn hàng</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-account" role="tab" aria-controls="tab-account" aria-selected="false">Account Details</a>
+                            <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-account" role="tab" aria-controls="tab-account" aria-selected="false">Thông tin tài khoản</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="@Url.Action("Logout", "Login")">Đăng xuất</a>
@@ -41,13 +41,13 @@
                     </ul>
                 </aside><!-- End .col-lg-3 -->
 
-                <div class="col-md-8 col-lg-9">
+                <div class="col-md-9 col-lg-10">
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel" aria-labelledby="tab-dashboard-link">
                             <p>
                                 Xin chào <span class="font-weight-normal text-dark">@Model.hoTen</span> (không phải <span class="font-weight-normal text-dark">@Model.hoTen</span>? <a href="@Url.Action("Logout", "Login")">Đăng xuất</a>)
                                 <br>
-                                Từ trang bản tin, bạn có thể xem các <a href="#tab-orders" class="tab-trigger-link link-underline">đơn đặt hàng gần đây</a>, quản lý <a href="#tab-account" class="tab-trigger-link">thông tin tài khoản và mật khẩu của mình</a>.
+                                Từ trang bản tin, bạn có thể xem các <a href="#tab-orders" class="tab-trigger-link">đơn đặt hàng gần đây</a>, quản lý <a href="#tab-account" class="tab-trigger-link">thông tin tài khoản và mật khẩu của mình</a>.
                             </p>
                         </div><!-- .End .tab-pane -->
 
@@ -84,7 +84,7 @@
                                         <a class="nav-link" data-toggle="tab" href="#tab-6" role="tab" aria-controls="tab-6" aria-selected="false">Trả hàng/Hoàn tiền</a>
                                     </li>
                                 </ul>
-                                <div class="tab-content tab-content-border">
+                                <div class="tab-content">
                                     <div class="tab-pane fade show active" id="tab-all" role="tabpanel" aria-labelledby="tab-5-tab">
                                         @Html.Action("RenderUserOrder", new { idCustomer = Model.id })
                                     </div><!-- .End .tab-pane -->

@@ -105,7 +105,7 @@ function LoadCartTable() {
                 quantityInputs();
             },
             error: (err) => {
-                console.log("Lỗi hiển thị giỏ hàng tại layout");
+                console.log("Lỗi hiển thị giỏ hàng");
             }
         })
     }

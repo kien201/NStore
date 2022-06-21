@@ -167,17 +167,21 @@
 
         //add product to wishlist
         function AddToWishlist(id) {
-            $.ajax({
-                url: '/User/Adding_Wishlist',
-                method: 'POST',
-                data: { id_sanpham: id },
-                success: function (rs) {
-                    alert(rs)
-                },
-                error: function () {
-                    alert("thất bại!")
-                }
-            })
+            if (isCustomerLogin == 1) {
+                $.ajax({
+                    url: '/User/Adding_Wishlist',
+                    method: 'POST',
+                    data: { id_sanpham: id },
+                    success: function (rs) {
+                        alert(rs)
+                    },
+                    error: function () {
+                        alert("Lỗi thêm vào danh sách ưa thích")
+                    }
+                })
+            } else {
+                $("#toggle-signin-modal").click();
+            }
         }
     </script>
 }
