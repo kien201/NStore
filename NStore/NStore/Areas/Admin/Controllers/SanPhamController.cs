@@ -18,17 +18,16 @@ namespace NStore.Areas.Admin.Controllers
         // GET: Admin/SanPham
         public ActionResult Index(string q)
         {
-            var sanPham = db.SanPham.Include(s => s.DanhMuc);
+            var sanPham = db.SanPham.Select(x => x);
             if (q != null)
             {
                 sanPham = sanPham.Where(x => x.tenSanPham.Contains(q) ||
                                              x.DanhMuc.tenDanhMuc.Contains(q) ||
                                              x.mota.Contains(q) ||
                                              x.xuatXu.Contains(q) ||
-                                             x.soLuongTon.Value.ToString().Contains(q)
-                                       );
+                                             x.soLuongTon.Value.ToString().Contains(q));
             }
-            return View(sanPham.ToList());
+            return View(sanPham.OrderByDescending(x => x.id));
         }
 
         // GET: Admin/SanPham/Details/5

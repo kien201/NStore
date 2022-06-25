@@ -18,28 +18,16 @@ namespace NStore.Areas.Admin.Controllers
         // GET: Admin/Order
         public ActionResult Index(string q)
         {
-            ViewBag.q = q;
-            return View();
-        }
-
-        [ChildActionOnly]
-        public ActionResult RenderTableOrder(string q, int? orderState)
-        {
-            var donHang = db.DonHang.Include(d => d.KhachHang);
-            if (orderState != null)
-            {
-                donHang = donHang.Where(x => x.trangThaiDonHang == orderState);
-            }
+            var donHang = db.DonHang.Select(x => x);
             if (q != null)
             {
                 donHang = donHang.Where(x => ("#" + x.id.ToString()).Contains(q) ||
                                              x.KhachHang.hoTen.Contains(q) ||
                                              x.KhachHang.soDienThoai.Contains(q) ||
                                              x.ChiTietDonHang.Where(y => y.SanPham.tenSanPham.Contains(q)).Count() > 0 ||
-                                             x.diaChiGiaoHang.Contains(q)
-                );
+                                             x.diaChiGiaoHang.Contains(q));
             }
-            return PartialView(donHang.ToList());
+            return View(donHang.OrderByDescending(x => x.id));
         }
 
         // GET: Admin/Order/Details/5
@@ -140,7 +128,7 @@ namespace NStore.Areas.Admin.Controllers
                     //nếu cập nhật đơn hàng thành giao hàng thành công, đặt ngày giao hàng bằng ngày hiện tại
                     if (newState == 4) order.ngayGiaoHang = DateTime.Now;
                     //nếu huỷ đơn hoặc trả hàng/hoàn tiền
-                    if (oldState == 4 && newState == 6 || (oldState == 2 || oldState == 3) && newState == 5)
+                    if ((oldState == 4 && newState == 6) || ((oldState == 2 || oldState == 3) && newState == 5))
                     {
                         foreach (var item in order.ChiTietDonHang)
                         {

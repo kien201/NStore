@@ -18,17 +18,17 @@ namespace NStore.Areas.Admin.Controllers
         // GET: Admin/Customer
         public ActionResult Index(string q)
         {
+            var khachHang = db.KhachHang.Select(x => x);
             if(q != null)
             {
-                return View(db.KhachHang.Where(x => 
+                khachHang = khachHang.Where(x => 
                                         x.hoTen.Contains(q) || 
                                         x.taiKhoan.Contains(q) ||
                                         x.email.Contains(q) || 
                                         x.soDienThoai.Contains(q) || 
-                                        x.diaChi.Contains(q)
-                                        ).ToList());
+                                        x.diaChi.Contains(q));
             }
-            return View(db.KhachHang.ToList());
+            return View(khachHang.OrderByDescending(x => x.id));
         }
 
         // GET: Admin/Customer/Details/5

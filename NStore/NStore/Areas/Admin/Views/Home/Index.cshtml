@@ -1,0 +1,105 @@
+﻿@model IEnumerable<NStore.Models.EF.DonHang>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section styles{
+    <style>
+        .card.notify {
+            text-align: center;
+            font-size: 1.5rem;
+        }
+    </style>
+}
+
+<h2 class="text-center mb-4">
+    NStore - Trang Quản Trị
+</h2>
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-comment-alt me-1"></i>
+        Thống Kê Tuần
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="card notify bg-success text-white py-2 m-2">
+                    <div class="card-body">
+                        <i class="fas fa-coins me-1"></i>
+                        Doanh thu <br /> <b>@Convert.ToInt32(ViewBag.doanhthu).ToString("c")</b>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="card notify bg-primary text-white py-2 m-2">
+                    <div class="card-body">
+                        <i class="fas fa-shopping-cart me-1"></i>
+                        Đơn hàng <br /> <b>@ViewBag.orderCount</b>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="card notify bg-info text-white py-2 m-2">
+                    <div class="card-body">
+                        <i class="fas fa-coins me-1"></i>
+                        Doanh thu/Đơn <br /> <b>@Convert.ToInt32(ViewBag.doanhthu / ViewBag.orderCount).ToString("c")</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-shopping-cart me-1"></i>
+        Đơn hàng
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card text-center m-2">
+                    <div class="card-body">
+                        <b>@Model.Where(x=>x.trangThaiDonHang == 1).Count()</b> <br /> Chờ xác nhận
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center m-2">
+                    <div class="card-body">
+                        <b>@Model.Where(x => x.trangThaiDonHang == 2).Count()</b> <br /> Chờ lấy hàng
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center m-2">
+                    <div class="card-body">
+                        <b>@Model.Where(x => x.trangThaiDonHang == 3).Count()</b> <br /> Đang giao
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center m-2">
+                    <div class="card-body">
+                        <b>@Model.Where(x => x.trangThaiDonHang == 4).Count()</b> <br /> Đã giao
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center m-2">
+                    <div class="card-body">
+                        <b>@Model.Where(x => x.trangThaiDonHang == 5).Count()</b> <br /> Đã huỷ
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center m-2">
+                    <div class="card-body">
+                        <b>@Model.Where(x => x.trangThaiDonHang == 6).Count()</b> <br /> Trả hàng/Hoàn tiền
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

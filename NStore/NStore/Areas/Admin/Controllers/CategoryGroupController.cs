@@ -18,13 +18,12 @@ namespace NStore.Areas.Admin.Controllers
         // GET: Admin/CategoryGroup
         public ActionResult Index(string q)
         {
+            var nhomDanhMuc = db.NhomDanhMuc.Select(x => x);
             if (q != null)
             {
-                return View(db.NhomDanhMuc.Where(x =>
-                                        x.tenNhomDanhMuc.Contains(q)
-                                        ).ToList());
+                nhomDanhMuc = nhomDanhMuc.Where(x => x.tenNhomDanhMuc.Contains(q));
             }
-            return View(db.NhomDanhMuc.ToList());
+            return View(nhomDanhMuc.OrderByDescending(x => x.id));
         }
 
         // GET: Admin/CategoryGroup/Details/5

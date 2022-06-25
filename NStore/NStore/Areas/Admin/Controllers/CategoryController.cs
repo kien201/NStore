@@ -23,7 +23,7 @@ namespace NStore.Areas.Admin.Controllers
             {
                 danhMuc = danhMuc.Where(x => x.tenDanhMuc.Contains(q) || x.NhomDanhMuc.tenNhomDanhMuc.Contains(q));
             }
-            return View(danhMuc.ToList());
+            return View(danhMuc.OrderByDescending(x => x.id));
         }
 
         // GET: Admin/Category/Details/5

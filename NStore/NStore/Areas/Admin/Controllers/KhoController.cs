@@ -16,34 +16,14 @@ namespace NStore.Areas.Admin.Controllers
         // GET: Admin/Kho
         public ActionResult Index(string q)
         {
-            ViewBag.q = q;
-            return View(db.SanPham.ToList());
-        }
-
-        [ChildActionOnly]
-        public ActionResult RenderInventory(string q, string type)
-        {
             var sanPham = db.SanPham.Select(x => x);
-            if (type != null)
-            {
-                switch (type)
-                {
-                    case "stock":
-                        sanPham = sanPham.Where(x => x.soLuongTon > 0);
-                        break;
-                    case "out-stock":
-                        sanPham = sanPham.Where(x => x.soLuongTon == 0);
-                        break;
-                }
-            }
             if (q != null)
             {
                 sanPham = sanPham.Where(x => x.tenSanPham.Contains(q) ||
                                              x.DanhMuc.tenDanhMuc.Contains(q) ||
-                                             x.soLuongTon.Value.ToString().Contains(q)
-                                       );
+                                             x.soLuongTon.Value.ToString().Contains(q));
             }
-            return PartialView(sanPham.ToList());
+            return View(sanPham.OrderByDescending(x => x.id));
         }
 
         public ActionResult NhapKho()
@@ -96,7 +76,7 @@ namespace NStore.Areas.Admin.Controllers
                                                  x.NhanVien.hoTen.Contains(q) ||
                                                  x.NhaCungCap.tenNhaCungCap.Contains(q));
             }
-            return PartialView(phieuNhap.ToList());
+            return PartialView(phieuNhap.OrderByDescending(x => x.id));
         }
 
         public ActionResult ChiTietPhieuNhap(int? id)
@@ -199,7 +179,7 @@ namespace NStore.Areas.Admin.Controllers
                                                  x.DonHang.KhachHang.hoTen.Contains(q) ||
                                                  x.NhanVien.hoTen.Contains(q));
             }
-            return PartialView(phieuXuat.ToList());
+            return PartialView(phieuXuat.OrderByDescending(x => x.id));
         }
 
         public ActionResult ChiTietPhieuXuat(int? id)

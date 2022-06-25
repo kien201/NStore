@@ -1,0 +1,103 @@
+﻿@model IEnumerable<NStore.Models.EF.DonHang>
+@{
+    ViewBag.Title = "Index";
+}
+@section styles{
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" href="~/assets/css/admin-table-style.css" />
+    <style>
+        .card.notify {
+            text-align: center;
+            font-size: 1.25rem;
+        }
+
+        .nav-tabs .nav-item .nav-link {
+            color: #566787;
+        }
+
+            .nav-tabs .nav-item .nav-link.active {
+                font-weight: bold;
+            }
+
+        .table-responsive {
+            border: 1px solid #dee2e6;
+            border-top-width: 0;
+        }
+    </style>
+}
+<div class="row">
+    <div class="container-xl">
+        @using (Html.BeginForm())
+        {
+            <div class="row">
+                <div class="col-3 mb-3">
+                    <div class="input-group">
+                        <span class="input-group-text">Từ ngày</span>
+                        <input type="date" name="fromDate" value="@ViewBag.fromDate.ToString("yyyy-MM-dd")" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-3 mb-3">
+                    <div class="input-group">
+                        <span class="input-group-text">Đến ngày</span>
+                        <input type="date" name="toDate" value="@ViewBag.toDate.ToString("yyyy-MM-dd")" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-3 mb-3">
+                    <input class="btn btn-primary px-4" style="height: 100%;" type="submit" value="Lọc" />
+                </div>
+            </div>
+        }
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-xl-4">
+                        <div class="card notify bg-secondary text-white my-1">
+                            <div class="card-body">
+                                <i class="fas fa-coins me-1"></i>
+                                Sẽ thanh toán <br /> <b>@Convert.ToInt32(Model.Where(x => x.trangThaiThanhToan == false).Sum(x => x.thanhTien)).ToString("c")</b>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4">
+                        <div class="card notify bg-success text-white my-1">
+                            <div class="card-body">
+                                <i class="fas fa-coins me-1"></i>
+                                Đã thanh toán <br /> <b>@Convert.ToInt32(Model.Where(x => x.trangThaiThanhToan == true).Sum(x => x.thanhTien)).ToString("c")</b>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4">
+                        <div class="card notify bg-primary text-white my-1">
+                            <div class="card-body">
+                                <i class="fas fa-shopping-cart me-1"></i>
+                                Đơn hàng <br /> <b>@Model.Count()</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">Sẽ thanh toán (@Model.Where(x => x.trangThaiThanhToan == false).Count())</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">Đã thanh toán (@Model.Where(x => x.trangThaiThanhToan == true).Count())</a>
+            </li>
+        </ul>
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="tab-1-tab">
+                        @Html.Partial("PartialReportTable", Model.Where(x => x.trangThaiThanhToan == false))
+                    </div>
+                    <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="tab-2-tab">
+                        @Html.Partial("PartialReportTable", Model.Where(x => x.trangThaiThanhToan == true))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

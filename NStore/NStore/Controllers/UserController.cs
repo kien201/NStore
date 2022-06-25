@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -19,19 +20,43 @@ namespace NStore.Controllers
             if (Session["curCustomer"] != null)
             {
                 var customer = (Session["curCustomer"] as KhachHang);
+                ViewBag.order = db.DonHang.Where(x => x.idKhachHang == customer.id).OrderByDescending(x => x.id);
                 return View(customer);
             }
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult RenderUserOrder(int idCustomer, int? orderState)
+        public ActionResult OrderDetails(int? id)
         {
-            var order = db.DonHang.Where(x => x.idKhachHang == idCustomer);
-            if (orderState != null)
+            if (Session["curCustomer"] != null)
             {
-                order = order.Where(x => x.trangThaiDonHang == orderState);
+                var customer = (Session["curCustomer"] as KhachHang);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                DonHang donHang = db.DonHang.Find(id);
+                if (donHang == null || customer.DonHang.Where(x => x.id == id).Count() == 0)
+                {
+                    return HttpNotFound();
+                }
+                return View(donHang);
             }
-            return PartialView(order.ToList());
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult OrderDetails(DonHang donHang)
+        {
+            if (donHang.trangThaiDonHang != 1) ModelState.AddModelError("", "Đơn đã được xác nhận, không thể cập nhật");
+            if (ModelState.IsValid)
+            {
+                db.Entry(donHang).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(donHang);
         }
 
         [HttpPost]

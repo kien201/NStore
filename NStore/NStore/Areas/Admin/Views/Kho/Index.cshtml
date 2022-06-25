@@ -61,13 +61,13 @@
                 </div>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="tab-all" role="tabpanel" aria-labelledby="tab-all-tab">
-                        @Html.Action("RenderInventory", new { q = ViewBag.q })
+                        @Html.Partial("RenderInventory", Model)
                     </div><!-- .End .tab-pane -->
                     <div class="tab-pane fade" id="tab-1" role="tabpanel" aria-labelledby="tab-1-tab">
-                        @Html.Action("RenderInventory", new { q = ViewBag.q, type = "stock" })
+                        @Html.Partial("RenderInventory", Model.Where(x => x.soLuongTon > 0))
                     </div><!-- .End .tab-pane -->
                     <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="tab-2-tab">
-                        @Html.Action("RenderInventory", new { q = ViewBag.q, type = "out-stock" })
+                        @Html.Partial("RenderInventory", Model.Where(x => x.soLuongTon == 0))
                     </div><!-- .End .tab-pane -->
                     <div class="tab-pane fade" id="tab-3" role="tabpanel" aria-labelledby="tab-3-tab">
                         @Html.Action("RenderPhieuNhap", new { q = ViewBag.q })
@@ -80,13 +80,3 @@
         </div>
     </div>
 </div>
-
-@section scripts{
-    <script>
-        var menu = $("#sidenavMenu")[0].querySelectorAll(".nav-link");
-        menu.forEach((item) => {
-            item.classList.remove("active");
-        })
-        menu[3].classList.add("active");
-    </script>
-}

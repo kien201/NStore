@@ -1,27 +1,23 @@
 ﻿@model IEnumerable<NStore.Models.EF.DonHang>
 
-<table class="table text-center mb-0">
+<table class="table table-striped table-hover table-bordered mb-0">
     <thead>
         <tr>
             <th>
-                #
+                Mã đơn hàng
             </th>
             <th>
                 @Html.DisplayNameFor(m => m.ngayDatHang)
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.diaChiGiaoHang)
+                @Html.DisplayNameFor(m => m.ngayGiaoHang)
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.thanhTien)
+                @Html.DisplayNameFor(x => x.trangThaiDonHang)
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.trangThaiThanhToan)
+                @Html.DisplayNameFor(x => x.thanhTien)
             </th>
-            <th>
-                @Html.DisplayNameFor(m => m.trangThaiDonHang)
-            </th>
-            <th>Chức năng</th>
         </tr>
     </thead>
     <tbody>
@@ -29,28 +25,15 @@
         {
             <tr>
                 <td>
-                    #@Html.DisplayFor(modelItem => item.id)
+                    @Html.ActionLink("#" + item.id, "Details", "Order", new { item.id }, null)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ngayDatHang)
+                    @Html.DisplayFor(m => item.ngayDatHang)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.diaChiGiaoHang)
+                    @Html.DisplayFor(m => item.ngayGiaoHang)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.thanhTien)
-                </td>
-                <td font-size: 20px">
-                    @if (item.trangThaiThanhToan.Value)
-                    {
-                        <i class="fas fa-check" style="color: #00cc00 "></i>
-                    }
-                    else
-                    {
-                        <i class="fas fa-times" style="color: #E34724"></i>
-                    }
-                </td>
-                <td width="10%">
                     @{ string orderState = ""; }
                     @switch (item.trangThaiDonHang)
                     {
@@ -76,9 +59,7 @@
                     @orderState
                 </td>
                 <td>
-                    <div>
-                        <a href="@Url.Action("OrderDetails", new { item.id })" class="view" title="Xem" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                    </div>
+                    @Html.DisplayFor(m => item.thanhTien)
                 </td>
             </tr>
         }

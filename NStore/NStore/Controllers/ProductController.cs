@@ -60,8 +60,8 @@ namespace NStore.Controllers
             //pagination
             int productPerPage = 12;
             ViewBag.page = page;
-            if (page - 1 > 0) ViewBag.prevPage = page - 1;
-            if (page * productPerPage < list.Count()) ViewBag.nextPage = page + 1;
+            float lastPage = (float)list.Count() / productPerPage;
+            ViewBag.lastPage = Convert.ToInt32(lastPage + 0.5);
             list = list.Skip((page - 1) * productPerPage).Take(productPerPage);
 
             ViewBag.category = category;
@@ -87,7 +87,7 @@ namespace NStore.Controllers
                                 .Select(x => new
                                 {
                                     x,
-                                                      //lấy những đơn hàng trong tháng có xuất hiện sản phẩm hiện tại (đang view trong product detail)
+                                    //lấy những đơn hàng trong tháng có xuất hiện sản phẩm hiện tại (đang view trong product detail)
                                     count = db.DonHang.Where(y => y.ngayDatHang.Value >= beginDate && y.ChiTietDonHang.Where(z => z.idSanPham == id).Count() > 0)
                                                       //tính tổng từng sản phẩm được mua cùng trong các đơn hàng
                                                       .Sum(y => y.ChiTietDonHang.Where(z => z.idSanPham == x.id).Sum(z => z.soLuong))

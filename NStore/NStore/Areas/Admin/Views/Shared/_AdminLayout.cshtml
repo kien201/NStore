@@ -18,6 +18,7 @@
         .sb-sidenav-dark .sb-sidenav-menu .nav-link.active {
             color: #ddd;
         }
+
         table td {
             vertical-align: middle;
         }
@@ -53,38 +54,56 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu" id="sidenavMenu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Tính năng quản trị</div>
-                        <a class="nav-link" href="@Url.Action("Index", "Customer")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                        @{
+                            string controllerName = @HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+                        }
+                        <div class="sb-sidenav-menu-heading">Người dùng</div>
+                        <a class="nav-link @(controllerName == "Home" ? "active" : "")" href="@Url.Action("Index", "Home")" js-menu-name="Order">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Bản Tin
+                        </a>
+                        <a class="nav-link @(controllerName == "Customer" ? "active" : "")" href="@Url.Action("Index", "Customer")" js-menu-name="Customer">
+                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                             Khách Hàng
-                        </a>
-                        <a class="nav-link" href="@Url.Action("Index", "Order")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Đơn hàng
-                        </a>
-                        <a class="nav-link" href="@Url.Action("Index", "SanPham")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Sản Phẩm
-                        </a>
-                        <a class="nav-link" href="@Url.Action("Index", "Kho")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Kho hàng
-                        </a>
-                        <a class="nav-link" href="@Url.Action("Index", "CategoryGroup")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Nhóm Danh Mục
-                        </a>
-                        <a class="nav-link" href="@Url.Action("Index", "Category")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Danh Mục
                         </a>
                         @if (curStaff.chucVu == 1)
                         {
-                            <a class="nav-link" href="@Url.Action("Index", "Staff")">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            <a class="nav-link @(controllerName == "Staff" ? "active" : "")" href="@Url.Action("Index", "Staff")" js-menu-name="Staff">
+                                <div class="sb-nav-link-icon"><i class="fas fa-user-cog"></i></div>
                                 Nhân Viên
                             </a>
                         }
+                        <div class="sb-sidenav-menu-heading">Bán hàng</div>
+                        <a class="nav-link @(controllerName == "Order" ? "active" : "")" href="@Url.Action("Index", "Order")" js-menu-name="Order">
+                            <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
+                            Đơn Hàng
+                        </a>
+                        <a class="nav-link @(controllerName == "Kho" ? "active" : "")" href="@Url.Action("Index", "Kho")" js-menu-name="Kho">
+                            <div class="sb-nav-link-icon"><i class="fas fa-warehouse"></i></div>
+                            Kho Hàng
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Quản lý sản phẩm</div>
+                        <a class="nav-link @(controllerName == "SanPham" ? "active" : "")" href="@Url.Action("Index", "SanPham")" js-menu-name="SanPham">
+                            <div class="sb-nav-link-icon"><i class="fas fa-couch"></i></div>
+                            Sản Phẩm
+                        </a>
+                        <a class="nav-link @(controllerName == "CategoryGroup" ? "active" : "")" href="@Url.Action("Index", "CategoryGroup")" js-menu-name="CategoryGroup">
+                            <div class="sb-nav-link-icon"><i class="fas fa-list-alt"></i></div>
+                            Nhóm Danh Mục
+                        </a>
+                        <a class="nav-link @(controllerName == "Category" ? "active" : "")" href="@Url.Action("Index", "Category")" js-menu-name="Category">
+                            <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                            Danh Mục
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Báo cáo & thống kê</div>
+                        <a class="nav-link @(controllerName == "Report" ? "active" : "")" href="@Url.Action("Index", "Report")" js-menu-name="Category">
+                            <div class="sb-nav-link-icon"><i class="fas fa-coins"></i></div>
+                            Doanh Thu
+                        </a>
+                        <a class="nav-link @(controllerName == "ChartReport" ? "active" : "")" href="@Url.Action("Index", "ChartReport")" js-menu-name="Category">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Biểu Đồ
+                        </a>
                     </div>
 
                 </div>

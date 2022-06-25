@@ -18,18 +18,18 @@ namespace NStore.Areas.Admin.Controllers
         // GET: Admin/Staff
         public ActionResult Index(string q)
         {
+            var nhanvien = db.NhanVien.Select(x => x);
             if (q != null)
             {
-                return View(db.NhanVien.Where(x =>
+                nhanvien = nhanvien.Where(x =>
                                         x.hoTen.Contains(q) ||
                                         x.taiKhoan.Contains(q) ||
                                         x.CCCD.Contains(q) ||
                                         x.email.Contains(q) ||
                                         x.soDienThoai.Contains(q) ||
-                                        x.diaChi.Contains(q)
-                                        ).ToList());
+                                        x.diaChi.Contains(q));
             }
-            return View(db.NhanVien.ToList());
+            return View(nhanvien.OrderByDescending(x => x.id));
         }
 
         // GET: Admin/Staff/Details/5

@@ -131,11 +131,14 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryGroupController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ChartReportController.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\KhoController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\NhaCungCapController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportController.cs" />
     <Compile Include="Areas\Admin\Controllers\StaffController.cs" />
     <Compile Include="Areas\Admin\Controllers\SanPhamController.cs" />
     <Compile Include="Code\Md5hash.cs" />
@@ -762,7 +765,7 @@
     <Content Include="assets\js\jquery.plugin.min.js" />
     <Content Include="assets\js\jquery.waypoints.min.js" />
     <Content Include="assets\js\main.js" />
-    <Content Include="assets\js\manage-cart.js" />
+    <Content Include="assets\js-created\manage-cart.js" />
     <Content Include="assets\js\nouislider.min.js" />
     <Content Include="assets\js\owl.carousel.min.js" />
     <Content Include="assets\js\scripts.js" />
@@ -864,6 +867,10 @@
     <Content Include="Areas\Admin\Views\Kho\XoaPhieuNhap.cshtml" />
     <Content Include="Areas\Admin\Views\Kho\ChiTietPhieuXuat.cshtml" />
     <Content Include="Areas\Admin\Views\Kho\XoaPhieuXuat.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ChartReport\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\PartialReportTable.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -898,6 +905,7 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\RenderUserOrder.cshtml" />
     <Content Include="Views\Home\RenderProductCarousel.cshtml" />
+    <Content Include="Views\User\OrderDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

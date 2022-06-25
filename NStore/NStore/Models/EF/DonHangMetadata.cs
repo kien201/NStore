@@ -13,6 +13,7 @@ namespace NStore.Models.EF
         public Nullable<System.DateTime> ngayDatHang { get; set; }
 
         [Display(Name = "Địa chỉ giao hàng")]
+        [Required(ErrorMessage = "Địa chỉ giao hàng không được để trống!")]
         public string diaChiGiaoHang { get; set; }
 
         [Display(Name = "Ngày giao hàng")]

@@ -1,0 +1,93 @@
+﻿@model NStore.Models.EF.DonHang
+
+@{
+    ViewBag.Title = "Chi tiết đơn hàng";
+}
+
+<div class="page-header text-center" style="background-image: url(@Url.Content("~/assets/images/page-header-bg.jpg"))">
+    <div class="container">
+        <h1 class="page-title">Đơn hàng - #@Model.id</h1>
+    </div><!-- End .container -->
+</div><!-- End .page-header -->
+
+<div class="page-content pt-4">
+    <div class="dashboard">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.id)
+                        @Html.HiddenFor(model => model.idKhachHang)
+                        @Html.HiddenFor(model => model.ngayDatHang)
+                        @Html.HiddenFor(model => model.ngayGiaoHang)
+                        @Html.HiddenFor(model => model.hinhThucThanhToan)
+                        @Html.HiddenFor(model => model.thanhTien)
+                        @Html.HiddenFor(model => model.trangThaiThanhToan)
+                        @Html.HiddenFor(model => model.trangThaiDonHang)
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                @Html.LabelFor(model => model.ngayDatHang)
+                                <input type="text" class="form-control" value="@(Model.ngayDatHang != null ? Model.ngayDatHang.Value.ToString("HH:mm - dd/MM/yyyy") : "??")" readonly />
+                            </div><!-- End .col-sm-6 -->
+
+                            <div class="col-sm-6">
+                                @Html.LabelFor(model => model.ngayGiaoHang)
+                                <input type="text" class="form-control" value="@(Model.ngayGiaoHang != null ? Model.ngayGiaoHang.Value.ToString("HH:mm - dd/MM/yyyy") : "??")" readonly />
+                            </div><!-- End .col-sm-6 -->
+                        </div><!-- End .row -->
+
+                        @Html.LabelFor(model => model.diaChiGiaoHang)
+                        @Html.ValidationMessageFor(model => model.diaChiGiaoHang, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.diaChiGiaoHang, new { htmlAttributes = new { @class = "form-control" } })
+
+                        @Html.LabelFor(model => model.ghiChu)
+                        @Html.ValidationMessageFor(model => model.ghiChu, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.ghiChu, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ghi chú về đơn giao hàng, lưu ý cho người bán" } })
+
+                        <div class="text-danger mb-1">(Lưu ý: Chỉ được cập nhật khi đơn chưa được xác nhận để tránh sai sót trong quá trình vận chuyển)</div>
+                        <button type="submit" class="btn btn-outline-primary-2">
+                            Cập nhật thông tin
+                        </button>
+                        @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-outline-primary-2" })
+                    }
+                </div>
+                <div class="col-lg-5">
+                    <div class="summary">
+                        <h3 class="summary-title">Đơn hàng của bạn</h3><!-- End .summary-title -->
+
+                        <table class="table table-summary">
+                            <thead>
+                                <tr>
+                                    <th>Sản phẩm</th>
+                                    <th>Giá</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var item in Model.ChiTietDonHang)
+                                {
+                                    <tr>
+                                        <td><a href="@Url.Action("ProductDetail", "Product", new { id = item.idSanPham })">@item.SanPham.tenSanPham x @item.soLuong</a></td>
+                                        <td>@Convert.ToInt32((item.donGia - item.donGia * item.giamGia / 100) * item.soLuong).ToString("c")</td>
+                                    </tr>
+                                }
+                                <tr class="summary-total">
+                                    <td>Tổng:</td>
+                                    <td>@Convert.ToInt32(Model.ChiTietDonHang.Sum(x => (x.donGia - x.donGia * x.giamGia / 100) * x.soLuong)).ToString("c")</td>
+                                </tr><!-- End .summary-total -->
+                            </tbody>
+                        </table><!-- End .table table-summary -->
+                    </div>
+                </div>
+            </div><!-- End .row -->
+        </div><!-- End .container -->
+    </div><!-- End .dashboard -->
+</div><!-- End .page-content -->
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
