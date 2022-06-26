@@ -1,7 +1,57 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Biểu đồ";
 }
 
-<h2>Index chart</h2>
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-comment-alt me-1"></i>
+        Thống kê doanh thu (Đơn vị: 000 VND)
+    </div>
+    <div class="card-body">
+        <div class="row justify-content-center">
+            <div class="col-xl-4 col-md-8 mb-4">
+                <div class="input-group">
+                    <select class="input-group-text form-select text-start" id="filter-type">
+                        <option value="0">Theo tháng</option>
+                        <option value="1">Theo năm</option>
+                    </select>
+                    <input type="month" id="input-date" value="@DateTime.Today.ToString("yyyy-MM")" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <canvas id="areaChartReport" width="100%" height="40"></canvas>
+    </div>
+</div>
 
+@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="~/assets/js-created/admin-chart-report.js"></script>
+    <script>
+        function UpdateChart(input) {
+            let inputType = input.getAttribute("type");
+            let inputValue = input.value;
+            RenderChartReport(inputType, inputValue);
+        }
+        UpdateChart(document.querySelector("#input-date"))
+
+        document.querySelector("#filter-type").addEventListener("change", (item) => {
+            let today = new Date();
+
+            let input = document.querySelector("#input-date");
+            if (item.target.value == 0) {
+                input.setAttribute("type", "month");
+                input.value = today.getFullYear() + "-" + (today.getMonth() + 1).toString().padStart(2, '0');
+            }
+            else {
+                input.setAttribute("type", "number");
+                input.setAttribute("min", today.getFullYear() - 20);
+                input.setAttribute("max", today.getFullYear() + 20);
+                input.value = today.getFullYear();
+            }
+            UpdateChart(input);
+        })
+
+        document.querySelector("#input-date").addEventListener("change", (item) => UpdateChart(item.target));
+    </script>
+}

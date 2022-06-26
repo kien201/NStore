@@ -15,7 +15,8 @@ namespace NStore.Areas.Admin.Controllers
         // GET: Admin/Home
         public ActionResult Index()
         {
-            var monday = DateTime.Today.AddDays(DayOfWeek.Monday - DateTime.Today.DayOfWeek);
+            int diff = (DateTime.Today.DayOfWeek - DayOfWeek.Monday + 7) % 7;
+            var monday = DateTime.Today.AddDays(-1 * diff);
             var order = db.DonHang.Where(x => x.ngayDatHang >= monday
                         && (x.trangThaiDonHang == 2 || x.trangThaiDonHang == 3 || x.trangThaiDonHang == 4));
             ViewBag.doanhthu = order.Sum(x => x.thanhTien);
